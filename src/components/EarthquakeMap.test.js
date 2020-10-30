@@ -18,8 +18,20 @@ jest.mock('@react-google-maps/api', () => ({
 describe('EarthquakeMap', () => {
   test('renders Google map with markers', async () => {
     const earthquakes = [
-      { position: { latitude: 1, longitude: 2 } },
-      { position: { latitude: 3, longitude: 4 } }
+      {
+        id: 'earthquake1',
+        position: {
+          latitude: 1,
+          longitude: 2
+        }
+      },
+      {
+        id: 'earthquake2',
+        position: {
+          latitude: 3,
+          longitude: 4
+        }
+      }
     ];
 
     render(<EarthquakeMap apiKey="test" earthquakes={ earthquakes } />);
