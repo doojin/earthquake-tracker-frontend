@@ -6,8 +6,8 @@ EarthquakeMarker.propTypes = {
   earthquake: PropTypes.object.isRequired
 };
 
-export default function EarthquakeMarker(props) {
-  const { longitude, latitude } = props.earthquake.position;
+export default function EarthquakeMarker({ earthquake }) {
+  const { longitude, latitude } = earthquake.position;
 
   return (
     <Marker position={{ lng: longitude, lat: latitude }} />

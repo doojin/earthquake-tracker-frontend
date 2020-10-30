@@ -19,11 +19,11 @@ const createEarthquakeMarkers = earthquakes => {
   );
 };
 
-export default function EarthquakeMap(props) {
-  const markers = createEarthquakeMarkers(props.earthquakes);
+export default function EarthquakeMap({ earthquakes, apiKey }) {
+  const markers = createEarthquakeMarkers(earthquakes);
 
   return (
-    <LoadScript googleMapsApiKey={ props.apiKey }>
+    <LoadScript googleMapsApiKey={ apiKey }>
       <GoogleMap mapContainerClassName="EarthquakeMapContainer" center={{ lat: 30, lng: -80 }} zoom={ 4 }>
         { markers }
       </GoogleMap>
