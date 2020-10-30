@@ -5,16 +5,16 @@ import EarthquakeMap from './EarthquakeMap';
 function App() {
   const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
 
-  const [earthquakes, setEarthquakes] = useState([])
-  const effectDependency = JSON.stringify(earthquakes)
+  const [earthquakes, setEarthquakes] = useState([]);
+  const effectDependency = JSON.stringify(earthquakes);
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('/earthquakes?limit=300')
-      const data = await response.json()
-      setEarthquakes(data.data)
-    })()
-  }, [effectDependency])
+      const response = await fetch('/earthquakes?limit=300');
+      const data = await response.json();
+      setEarthquakes(data.data);
+    })();
+  }, [effectDependency]);
 
   return (
     <Container fluid style={{ height: '100%' }}>
