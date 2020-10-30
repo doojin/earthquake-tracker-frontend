@@ -14,9 +14,9 @@ EarthquakeMap.defaultProps = {
 };
 
 const createEarthquakeMarkers = earthquakes => {
-  return earthquakes.map((earthquake, index) =>
-    // TODO: replace index with id returned from the server
-    <EarthquakeMarker key={ index } earthquake={ earthquake } />);
+  return earthquakes.map(earthquake =>
+    <EarthquakeMarker key={ earthquake.id } earthquake={ earthquake } />
+  );
 };
 
 export default function EarthquakeMap(props) {
