@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('/earthquakes?limit=300');
+      const response = await fetch('/earthquakes?limit=100');
       const data = await response.json();
       setEarthquakes(data.data);
     })();
