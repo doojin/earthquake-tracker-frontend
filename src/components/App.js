@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import EarthquakeMap from './EarthquakeMap';
+import Container from './Container';
 
 function App() {
   const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
@@ -16,17 +16,15 @@ function App() {
     })();
   }, [effectDependency]);
 
+  const earthquakeMap = (
+    <EarthquakeMap earthquakes={ earthquakes }
+                   apiKey={ API_KEY }
+                   center={{ latitude: 30, longitude: -85 }}/>
+  );
+
   return (
-    <Container fluid style={{ height: '100%' }}>
-      <Row style={{ height: '100%' }}>
-        <Col xs={ 3 } />
-        <Col xs={ 9 }>
-          <EarthquakeMap earthquakes={ earthquakes }
-                         apiKey={ API_KEY }
-                         center={{ latitude: 30, longitude: -85 }}/>
-        </Col>
-      </Row>
-    </Container>
+    <Container leftColumn={{ size: 3, children: '' }}
+               rightColumn={{ size: 9, children: earthquakeMap }}/>
   );
 }
 
