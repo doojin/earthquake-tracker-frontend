@@ -5,7 +5,7 @@ import EarthquakeDescription from './EarthquakeDescription';
 
 EarthquakePopup.propTypes = {
   earthquake: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   active: PropTypes.bool
 };
 

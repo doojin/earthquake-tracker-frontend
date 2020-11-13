@@ -2,6 +2,7 @@ import React from 'react';
 import './EarthquakeDescription.css';
 import PropTypes from 'prop-types';
 import RelativeDate from './RelativeDate';
+import Magnitude from './Magnitude';
 
 TitleRow.propTypes = {
   title: PropTypes.string.isRequired
@@ -51,7 +52,8 @@ MagnitudeRow.propTypes = {
 };
 
 function MagnitudeRow({ magnitude }) {
-  return (<DataRow label="magnitude:" value={ magnitude } />);
+  const magnitudeComponent = <Magnitude magnitude={ magnitude } />;
+  return (<DataRow label="magnitude:" value={ magnitudeComponent } />);
 }
 
 CoordinatesRow.propTypes = {

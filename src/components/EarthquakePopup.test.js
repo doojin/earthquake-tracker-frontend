@@ -12,7 +12,10 @@ describe('EarthquakePopup', () => {
     position: {
       latitude: 0,
       longitude: 0
-    }
+    },
+    magnitude: 0,
+    timestamp: 0,
+    title: ''
   };
 
   describe('popup is active', () => {
