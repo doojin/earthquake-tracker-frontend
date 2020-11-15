@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import EarthquakeMap from './EarthquakeMap';
 import Container from './Container';
+import { selectAllEarthquakes, fetchEarthquakes } from '../store/slices/earthquakesSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
+// TODO: once query form is implemented: add unit tests
 function App() {
+  // TODO: verify what to do with this key
   const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
 
-  const [earthquakes, setEarthquakes] = useState([]);
-  const effectDependency = JSON.stringify(earthquakes);
+  const dispatch = useDispatch();
+  const earthquakes = useSelector(selectAllEarthquakes);
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch('/earthquakes?limit=100');
-      const data = await response.json();
-      setEarthquakes(data.data);
-    })();
-  }, [effectDependency]);
+  useEffect(() => dispatch(fetchEarthquakes()), [dispatch]);
 
   const earthquakeMap = (
     <EarthquakeMap earthquakes={ earthquakes }
