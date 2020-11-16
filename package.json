@@ -6,8 +6,11 @@
   "dependencies": {
     "@react-google-maps/api": "^1.13.0",
     "@reduxjs/toolkit": "^1.4.0",
+    "antd": "^4.8.2",
     "bootstrap": "^4.5.3",
     "date-fns": "^2.16.1",
+    "formik": "^2.2.5",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",

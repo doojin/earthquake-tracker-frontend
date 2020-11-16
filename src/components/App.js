@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import EarthquakeMap from './EarthquakeMap';
 import Container from './Container';
-import { selectAllEarthquakes, fetchEarthquakes } from '../store/slices/earthquakesSlice';
+import { getAllEarthquakes, fetchEarthquakes } from '../store/slices/earthquakesSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import QueryForm from './QueryForm';
+import 'antd/dist/antd.css';
 
 // TODO: once query form is implemented: add unit tests
 function App() {
@@ -10,7 +12,7 @@ function App() {
   const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
 
   const dispatch = useDispatch();
-  const earthquakes = useSelector(selectAllEarthquakes);
+  const earthquakes = useSelector(getAllEarthquakes);
 
   useEffect(() => dispatch(fetchEarthquakes()), [dispatch]);
 
@@ -21,7 +23,7 @@ function App() {
   );
 
   return (
-    <Container leftColumn={{ size: 3, children: '' }}
+    <Container leftColumn={{ size: 3, children: <QueryForm/> }}
                rightColumn={{ size: 9, children: earthquakeMap }}/>
   );
 }

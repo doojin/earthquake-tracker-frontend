@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const selectAllEarthquakes = state => state.earthquakes;
+export const getAllEarthquakes = state => state.earthquakes;
 
 export const fetchEarthquakes = createAsyncThunk(
   'earthquakes/fetch',

@@ -1,7 +1,7 @@
-import earthquakesReducer, { selectAllEarthquakes, fetchEarthquakes } from './earthquakesSlice';
+import earthquakesReducer, { getAllEarthquakes, fetchEarthquakes } from './earthquakesSlice';
 
 describe('earthquakes slice', () => {
-  describe('selectAllEarthquakes', () => {
+  describe('getAllEarthquakes', () => {
     let state = {
       earthquakes: [
         'earthquake1',
@@ -10,7 +10,7 @@ describe('earthquakes slice', () => {
     };
 
     test('returns array of earthquakes', () => {
-      expect(selectAllEarthquakes(state)).toEqual(['earthquake1', 'earthquake2']);
+      expect(getAllEarthquakes(state)).toEqual(['earthquake1', 'earthquake2']);
     });
   });
 
