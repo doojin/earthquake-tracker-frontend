@@ -81,7 +81,7 @@ export default function EarthquakeDescription({ title, timestamp, magnitude, lat
         <TitleRow title={ title } />
         <SeparatorRow />
         <DateRow timestamp={ timestamp } />
-        <MagnitudeRow magnitude={ magnitude } />
+        <MagnitudeRow magnitude={ parseFloat(magnitude.toFixed(1)) } />
         <CoordinatesRow latitude={ latitude } longitude={ longitude }/>
       </tbody>
     </table>

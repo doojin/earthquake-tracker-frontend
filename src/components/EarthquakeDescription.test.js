@@ -11,7 +11,7 @@ describe('EarthquakeDescription', () => {
     render(<EarthquakeDescription timestamp={ yesterdayTimestamp }
                                   latitude={ 20 }
                                   longitude={ -20.1234567 }
-                                  magnitude={ 1.5 }
+                                  magnitude={ 1.55 }
                                   title="Very Big Earthquake" />);
   });
 
@@ -33,7 +33,7 @@ describe('EarthquakeDescription', () => {
     expect(magnitudeLabel).toBeInTheDocument();
 
     const magnitudeValue = magnitudeLabel.nextSibling;
-    expect(magnitudeValue).toHaveTextContent('1.5');
+    expect(magnitudeValue).toHaveTextContent('1.6');
   });
 
   test('renders earthquake coordinates', () => {
