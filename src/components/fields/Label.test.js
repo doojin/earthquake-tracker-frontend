@@ -28,4 +28,28 @@ describe('Label', () => {
 
     expect(input).toHaveFocus();
   });
+
+  describe('bottomMargin property passed', () => {
+    beforeEach(() => {
+      render(
+        <Label htmlFor="my-input" text="my input" bottomMargin/>
+      );
+    });
+
+    test('adding bottom margin to the label', () => {
+      expect(screen.getByText('my input')).toHaveClass('bottomMargin');
+    });
+  });
+
+  describe('bottomMargin property not passed', () => {
+    beforeEach(() => {
+      render(
+        <Label htmlFor="my-input" text="my input"/>
+      );
+    });
+
+    test('not adding bottom margin to the label', () => {
+      expect(screen.getByText('my input')).not.toHaveClass('bottomMargin');
+    });
+  });
 });

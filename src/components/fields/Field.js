@@ -5,12 +5,19 @@ import './Field.css';
 
 Field.propTypes = {
   label: PropTypes.string,
+  labelBottomMargin: PropTypes.bool,
   name: PropTypes.string.isRequired
 };
 
-export default function Field({ children, label, name }) {
+Field.defaultProps = {
+  labelBottomMargin: false
+};
+
+export default function Field({ children, name, label, labelBottomMargin }) {
   const inputLabel = label && (
-    <Label htmlFor={name} text={label}  />
+    <Label htmlFor={name}
+           text={label}
+           bottomMargin={labelBottomMargin}/>
   );
 
   return (

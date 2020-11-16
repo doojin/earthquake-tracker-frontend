@@ -2,3 +2,8 @@
     margin-bottom: 0;
 }
 
+.Label.bottomMargin {
+    margin-bottom: .5rem;
+}
+
+
