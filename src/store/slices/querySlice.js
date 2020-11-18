@@ -12,9 +12,15 @@ const querySlice = createSlice({
     minDepth: -100,
     maxDepth: 1000
   },
-  reducers: {}
+  reducers: {
+    updateQuery(state, action) {
+      return action.payload;
+    }
+  }
 });
 
 export const getQuery = state => state.query;
+
+export const {updateQuery} = querySlice.actions;
 
 export default querySlice.reducer;

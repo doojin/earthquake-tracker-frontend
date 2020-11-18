@@ -1,4 +1,4 @@
-import {getQuery} from './querySlice';
+import queryReducer, {getQuery, updateQuery} from './querySlice';
 
 describe('query slice', () => {
   describe('getQuery', () => {
@@ -10,6 +10,17 @@ describe('query slice', () => {
       };
 
       expect(getQuery(state)).toEqual(2);
+    });
+  });
+
+  describe('updateQuery', () => {
+    test('updates query', () => {
+      const updatedState = queryReducer(
+        {queryProp: 1},
+        updateQuery({queryProp: 2})
+      );
+
+      expect(updatedState).toEqual({queryProp: 2});
     });
   });
 });
