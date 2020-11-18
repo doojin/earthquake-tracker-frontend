@@ -1,3 +1,11 @@
 .Field {
     margin-top: 2.5rem;
 }
+
+.Field .fullWidth {
+    width: 100%;
+}
+
+.Field .floatRight {
+    float: right;
+}
