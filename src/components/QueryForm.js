@@ -1,8 +1,8 @@
 import React from 'react';
 import {Formik, Form} from 'formik';
 import {Button} from 'antd';
-import {useSelector} from 'react-redux';
-import {getQuery} from '../store/slices/querySlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {getQuery, updateQuery} from '../store/slices/querySlice';
 
 import SliderField from './fields/SliderField';
 import RangeSliderField from './fields/RangeSliderField';
@@ -12,10 +12,11 @@ import './QueryForm.css';
 
 export default function QueryForm() {
   const query = useSelector(getQuery);
-  const onSubmit = values => console.log(values);
+  const dispatch = useDispatch();
 
   return (
-    <Formik initialValues={query} onSubmit={onSubmit}>
+    <Formik initialValues={query}
+            onSubmit={values => dispatch(updateQuery(values))}>
       {
         props => (
           <Form className="QueryForm">

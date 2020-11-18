@@ -5,7 +5,7 @@ import Field from './Field';
 
 SliderField.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   name: PropTypes.string.isRequired,
   setFieldValue: PropTypes.func.isRequired,
   min: PropTypes.number.isRequired,

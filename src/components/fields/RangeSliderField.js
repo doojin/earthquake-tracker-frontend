@@ -5,8 +5,8 @@ import Field from './Field';
 
 RangeSliderField.propTypes = {
   label: PropTypes.string,
-  minValue: PropTypes.number.isRequired,
-  maxValue: PropTypes.number.isRequired,
+  minValue: PropTypes.number,
+  maxValue: PropTypes.number,
   minValueName: PropTypes.string.isRequired,
   maxValueName: PropTypes.string.isRequired,
   setFieldValue: PropTypes.func.isRequired,

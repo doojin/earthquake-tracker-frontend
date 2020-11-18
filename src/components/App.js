@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import EarthquakeMap from './EarthquakeMap';
 import Container from './Container';
 import { getAllEarthquakes, fetchEarthquakes } from '../store/slices/earthquakesSlice';
+import { getQuery } from '../store/slices/querySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import QueryForm from './QueryForm';
 import 'antd/dist/antd.css';
@@ -12,9 +13,10 @@ function App() {
   const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
 
   const dispatch = useDispatch();
+  const query = useSelector(getQuery);
   const earthquakes = useSelector(getAllEarthquakes);
 
-  useEffect(() => dispatch(fetchEarthquakes()), [dispatch]);
+  useEffect(() => dispatch(fetchEarthquakes()), [dispatch, query]);
 
   const earthquakeMap = (
     <EarthquakeMap earthquakes={ earthquakes }
