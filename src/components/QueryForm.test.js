@@ -1,10 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import QueryForm from './QueryForm';
+import {Provider} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
 
 describe('query form', () => {
+  let store;
+
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        query: () => ({
+          limit: 0,
+          minMagnitude: 0,
+          maxMagnitude: 0,
+          startDateTime: Date.now(),
+          endDateTime: Date.now(),
+          minDepth: 0,
+          maxDepth: 0
+        })
+      }
+    });
+  });
+
   test('render form fields', () => {
-    render(<QueryForm/>);
+    render(
+      <Provider store={store}>
+        <QueryForm/>
+      </Provider>
+    );
 
     expect(screen.queryByText('Limit:')).toBeInTheDocument();
     expect(screen.queryByRole('spinbutton', { name: 'Limit:' })).toBeInTheDocument();

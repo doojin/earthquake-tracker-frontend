@@ -1,7 +1,8 @@
 import React from 'react';
-import moment from 'moment';
 import {Formik, Form} from 'formik';
 import {Button} from 'antd';
+import {useSelector} from 'react-redux';
+import {getQuery} from '../store/slices/querySlice';
 
 import SliderField from './fields/SliderField';
 import RangeSliderField from './fields/RangeSliderField';
@@ -10,26 +11,11 @@ import DateTimeField from './fields/DateTimeField';
 import './QueryForm.css';
 
 export default function QueryForm() {
-  const initialValues = {
-    limit: 200,
-    minMagnitude: 0.0,
-    maxMagnitude: 10.0,
-    startDateTime: moment().subtract(1, 'days').toDate(),
-    endDateTime: new Date(),
-    minDepth: -100,
-    maxDepth: 1000,
-    // enableLocation: false,
-    // minLatitude: -90,
-    // maxLatitude: 90,
-    // minLongitude: -180,
-    // maxLongitude: 180,
-    // radius: 20_000
-  };
-
+  const query = useSelector(getQuery);
   const onSubmit = values => console.log(values);
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={query} onSubmit={onSubmit}>
       {
         props => (
           <Form className="QueryForm">
