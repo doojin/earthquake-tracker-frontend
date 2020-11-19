@@ -15,6 +15,7 @@ const earthquakesSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
+    [fetchEarthquakes.pending]: () => [],
     [fetchEarthquakes.fulfilled]: (state, action) => {
       return action.payload;
     }

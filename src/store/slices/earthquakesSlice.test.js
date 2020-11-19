@@ -39,5 +39,9 @@ describe('earthquakes slice', () => {
       expect(getEarthquakes).toHaveBeenCalledTimes(1);
       expect(getEarthquakes).toHaveBeenCalledWith(query);
     });
+
+    test('cleans earthquakes when started fetching', () => {
+      expect(earthquakesReducer(['earthquake'], fetchEarthquakes.pending())).toEqual([]);
+    });
   });
 });
