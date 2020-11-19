@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('date time field', () => {
   test('renders date/time input', () => {
-    renderForm({date: new Date(1991, 2, 21, 21, 40, 13)})(formik => (
+    renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
       <DateTimeField name="date"
                      value={formik.values.date}
                      setFieldValue={formik.setFieldValue}/>
@@ -16,7 +16,7 @@ describe('date time field', () => {
   });
 
   test('date/time selection widget not shown by default', () => {
-    renderForm({date: new Date(1991, 2, 21, 21, 40, 13)})(formik => (
+    renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
       <DateTimeField name="date"
                      value={formik.values.date}
                      setFieldValue={formik.setFieldValue}/>
@@ -27,7 +27,7 @@ describe('date time field', () => {
 
   describe('label property passed', () => {
     beforeEach(() => {
-      renderForm({date: new Date(1991, 2, 21, 21, 40, 13)})(formik => (
+      renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
         <DateTimeField name="date"
                        value={formik.values.date}
                        label="my date/time picker"
@@ -47,7 +47,7 @@ describe('date time field', () => {
 
   describe('label property not passed', () => {
     beforeEach(() => {
-      renderForm({date: new Date(1991, 2, 21, 21, 40, 13)})(formik => (
+      renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
         <DateTimeField name="date"
                        value={formik.values.date}
                        setFieldValue={formik.setFieldValue}/>
@@ -61,7 +61,7 @@ describe('date time field', () => {
 
   describe('user clicks date/time input', () => {
     beforeEach(() => {
-      renderForm({date: new Date(1991, 2, 21, 21, 40, 13)})(formik => (
+      renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
         <DateTimeField name="date"
                        value={formik.values.date}
                        setFieldValue={formik.setFieldValue}/>
@@ -77,7 +77,7 @@ describe('date time field', () => {
 
   describe('user selects date and time', () => {
     beforeEach(() => {
-      renderForm({date: new Date(1991, 2, 21, 21, 40, 13)})(formik => (
+      renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
         <DateTimeField name="date"
                        value={formik.values.date}
                        setFieldValue={formik.setFieldValue}/>
