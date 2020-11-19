@@ -5,7 +5,7 @@ import { getAllEarthquakes, fetchEarthquakes } from '../store/slices/earthquakes
 import { getQuery } from '../store/slices/querySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import QueryForm from './QueryForm';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.less';
 import './App.css';
 
 // TODO: once query form is implemented: add unit tests

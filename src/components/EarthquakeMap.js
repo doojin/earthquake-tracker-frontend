@@ -24,7 +24,7 @@ export default function EarthquakeMap({ earthquakes, apiKey }) {
 
   return (
     <LoadScript googleMapsApiKey={ apiKey }>
-      <GoogleMap mapContainerClassName="EarthquakeMapContainer" center={{ lat: 30, lng: -80 }} zoom={ 4 }>
+      <GoogleMap mapContainerClassName="EarthquakeMapContainer" center={{ lat: 30, lng: -80 }} zoom={ 3 }>
         { markers }
       </GoogleMap>
     </LoadScript>
