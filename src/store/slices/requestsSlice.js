@@ -20,6 +20,6 @@ const requestsSlice = createSlice({
   }
 });
 
-export const hasActiveRequests = state => state.activeRequests > 0;
+export const hasActiveRequests = state => state.requests.activeRequests > 0;
 
 export default requestsSlice.reducer;

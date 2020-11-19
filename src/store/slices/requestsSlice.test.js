@@ -40,7 +40,9 @@ describe('requests slice', () => {
     describe('active requests exist', () => {
       beforeEach(() => {
         state = {
-          activeRequests: 1
+          requests: {
+            activeRequests: 1
+          }
         };
       });
 
@@ -52,7 +54,9 @@ describe('requests slice', () => {
     describe('active requests not exist', () => {
       beforeEach(() => {
         state = {
-          activeRequests: 0
+          requests: {
+            activeRequests: 0
+          }
         };
       });
 
