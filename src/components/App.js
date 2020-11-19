@@ -16,7 +16,7 @@ function App() {
   const query = useSelector(getQuery);
   const earthquakes = useSelector(getAllEarthquakes);
 
-  useEffect(() => dispatch(fetchEarthquakes()), [dispatch, query]);
+  useEffect(() => dispatch(fetchEarthquakes(query)), [dispatch, query]);
 
   const earthquakeMap = (
     <EarthquakeMap earthquakes={ earthquakes }
