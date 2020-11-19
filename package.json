@@ -49,6 +49,7 @@
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "fetch-mock": "^9.10.7",
     "msw": "^0.21.3",
     "prop-types": "^15.7.2",
     "redux-mock-store": "^1.5.4",
