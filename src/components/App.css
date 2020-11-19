@@ -1,0 +1,8 @@
+.queryForm {
+    overflow-y: scroll;
+    max-height: 100%;
+}
+
+.earthquakeMap {
+    padding: 0 !important;
+}

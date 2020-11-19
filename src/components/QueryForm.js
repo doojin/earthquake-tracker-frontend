@@ -68,7 +68,7 @@ export default function QueryForm() {
             {/*  </Switch>*/}
             {/*</div>*/}
 
-            <div className="field">
+            <div className="field text-center">
               <Button onClick={props.handleSubmit}>
                 Search Earthquakes
               </Button>

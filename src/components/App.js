@@ -6,6 +6,7 @@ import { getQuery } from '../store/slices/querySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import QueryForm from './QueryForm';
 import 'antd/dist/antd.css';
+import './App.css';
 
 // TODO: once query form is implemented: add unit tests
 function App() {
@@ -25,8 +26,8 @@ function App() {
   );
 
   return (
-    <Container leftColumn={{ size: 3, children: <QueryForm/> }}
-               rightColumn={{ size: 9, children: earthquakeMap }}/>
+    <Container leftColumn={{ size: 3, className: 'queryForm', children: <QueryForm/> }}
+               rightColumn={{ size: 9, className: 'earthquakeMap', children: earthquakeMap }}/>
   );
 }
 
