@@ -5,6 +5,7 @@ import { getAllEarthquakes, fetchEarthquakes } from '../store/slices/earthquakes
 import { getQuery } from '../store/slices/querySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import QueryForm from './QueryForm';
+import DataLoadingIndicator from './DataLoadingIndicator';
 import 'antd/dist/antd.less';
 import './App.css';
 
@@ -26,8 +27,11 @@ function App() {
   );
 
   return (
-    <Container leftColumn={{ size: 3, className: 'queryForm', children: <QueryForm/> }}
-               rightColumn={{ size: 9, className: 'earthquakeMap', children: earthquakeMap }}/>
+    <React.Fragment>
+      <DataLoadingIndicator/>
+      <Container leftColumn={{ size: 3, className: 'queryForm', children: <QueryForm/> }}
+                 rightColumn={{ size: 9, className: 'earthquakeMap', children: earthquakeMap }}/>
+    </React.Fragment>
   );
 }
 
