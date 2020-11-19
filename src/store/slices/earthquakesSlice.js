@@ -1,13 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getEarthquakes } from '../../api/earthquakesApi';
 
 export const getAllEarthquakes = state => state.earthquakes;
 
 export const fetchEarthquakes = createAsyncThunk(
   'earthquakes/fetch',
-  async () => {
-    const response = await fetch('/earthquakes?limit=100');
-    const json = await response.json();
-    return json.data;
+  async (query) => {
+    return await getEarthquakes(query);
   }
 );
 
