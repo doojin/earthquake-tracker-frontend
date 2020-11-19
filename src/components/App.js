@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import QueryForm from './QueryForm';
 import DataLoadingIndicator from './DataLoadingIndicator';
 import 'antd/dist/antd.less';
-import './App.css';
+import './App.less';
 
 // TODO: once query form is implemented: add unit tests
 function App() {

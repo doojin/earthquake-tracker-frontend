@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Label.css';
+import './Label.less';
 
 Label.propTypes = {
   htmlFor: PropTypes.string.isRequired,

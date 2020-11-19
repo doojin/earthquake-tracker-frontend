@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Label from './Label';
-import './Field.css';
+import './Field.less';
 
 Field.propTypes = {
   label: PropTypes.string,

@@ -1,5 +1,5 @@
 import React from 'react';
-import './EarthquakeDescription.css';
+import './EarthquakeDescription.less';
 import PropTypes from 'prop-types';
 import RelativeDate from './RelativeDate';
 import Magnitude from './Magnitude';

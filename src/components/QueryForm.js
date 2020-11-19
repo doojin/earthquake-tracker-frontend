@@ -8,7 +8,7 @@ import SliderField from './fields/SliderField';
 import RangeSliderField from './fields/RangeSliderField';
 import DateTimeField from './fields/DateTimeField';
 
-import './QueryForm.css';
+import './QueryForm.less';
 
 export default function QueryForm() {
   const query = useSelector(getQuery);

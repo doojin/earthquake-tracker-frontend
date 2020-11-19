@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoadScript, GoogleMap } from '@react-google-maps/api';
 import EarthquakeMarker from './EarthquakeMarker';
-import './EarthquakeMap.css';
+import './EarthquakeMap.less';
 import PropTypes from 'prop-types';
 
 EarthquakeMap.propTypes = {

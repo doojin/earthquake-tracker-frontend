@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Col, Container as BootstrapContainer, Row} from "react-bootstrap";
-import './Container.css';
+import './Container.less';
 
 const ColumnType = PropTypes.shape({
   size: PropTypes.number.isRequired,
