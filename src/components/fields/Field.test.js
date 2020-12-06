@@ -1,15 +1,16 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
+import React, {useEffect} from 'react';
+import {screen, waitFor} from '@testing-library/react';
+import {renderForm} from '../../utils/test/formik';
 import Field from './Field';
 
 describe('Field', () => {
   describe('label property exists', () => {
     beforeEach(() => {
-      render(
-        <Field name="my-field" label="My Field">
+      renderForm({})(formik => (
+        <Field name="my-field" label="My Field" formik={formik}>
           <input type="text" id="my-field"/>
         </Field>
-      );
+      ));
     });
 
     test('renders label', () => {
@@ -22,28 +23,79 @@ describe('Field', () => {
   });
 
   describe('label property not exists', () => {
-    let renderResult;
+    let container;
 
     beforeEach(() => {
-      renderResult = render(
-        <Field name="my-field">
+      container = renderForm({})(formik => (
+        <Field name="my-field" formik={formik}>
           <input type="text" id="my-field"/>
         </Field>
-      );
+      ));
     });
 
     test('not renders label', () => {
-      expect(renderResult.container.querySelector('label')).not.toBeInTheDocument();
+      expect(container.querySelector('label')).not.toBeInTheDocument();
     });
   });
 
   test('renders input child', () => {
-    render(
-      <Field name="my-field">
+    renderForm({})(formik => (
+      <Field name="my-field" formik={formik}>
         <input type="text" id="my-field"/>
       </Field>
-    );
+    ));
 
     expect(screen.queryByRole('textbox')).toBeInTheDocument();
+  });
+
+  describe('primary error not empty', () => {
+    let FieldComponent;
+
+    beforeEach(() => {
+      FieldComponent = ({formik}) => {
+          useEffect(() => {
+            formik.setErrors({ 'my-field': 'test primary error' });
+            formik.setTouched({ 'my-field': true });
+            // eslint-disable-next-line
+          }, []);
+
+        return (
+          <Field formik={formik} name="my-field">
+            <input type="text" id="my-field"/>
+          </Field>
+        );
+      };
+    });
+
+    test('error message is displayed', async () => {
+      renderForm({})(formik => <FieldComponent formik={formik}/>);
+      await waitFor(() => expect(screen.queryByText('test primary error')).toBeInTheDocument());
+    });
+  });
+
+  describe('secondary error not empty', () => {
+    let FieldComponent;
+
+    beforeEach(() => {
+      FieldComponent = ({formik}) => {
+        useEffect(() => {
+          formik.setErrors({ 'my-field2': 'test secondary error' });
+          formik.setTouched({ 'my-field2': true });
+          // eslint-disable-next-line
+        }, []);
+
+        return (
+          <Field formik={formik} name="my-field1" secondaryName="my-field2">
+            <input type="text" id="my-field1"/>
+            <input type="text" id="my-field2"/>
+          </Field>
+        );
+      };
+    });
+
+    test('error message is displayed', async () => {
+      renderForm({})(formik => <FieldComponent formik={formik}/>);
+      await waitFor(() => expect(screen.queryByText('test secondary error')).toBeInTheDocument());
+    });
   });
 });
