@@ -5,11 +5,9 @@ import Field from './Field';
 
 RangeSliderField.propTypes = {
   label: PropTypes.string,
-  minValue: PropTypes.number,
-  maxValue: PropTypes.number,
   minValueName: PropTypes.string.isRequired,
   maxValueName: PropTypes.string.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
+  formik: PropTypes.object.isRequired,
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired
@@ -17,41 +15,47 @@ RangeSliderField.propTypes = {
 
 export default function RangeSliderField({
     label,
-    minValue,
-    maxValue,
     minValueName,
     maxValueName,
-    setFieldValue,
+    formik,
     min,
     max,
     step
   }) {
   return (
-    <Field label={label} name={minValueName}>
+    <Field label={label} name={minValueName} secondaryName={maxValueName} formik={formik}>
 
       <Slider min={min}
               max={max}
               step={step}
               range
-              value={[minValue, maxValue]}
+              value={[formik.values[minValueName], formik.values[maxValueName]]}
               onChange={([min, max]) => {
-                setFieldValue(minValueName, min);
-                setFieldValue(maxValueName, max);
+                formik.setFieldValue(minValueName, min);
+                formik.setFieldValue(maxValueName, max);
+                formik.setFieldTouched(minValueName, true);
+                formik.setFieldTouched(maxValueName, true);
               }}/>
 
       <InputNumber id={minValueName}
                    min={min}
                    max={max}
                    step={step}
-                   value={minValue}
-                   onChange={value => setFieldValue(minValueName, value)}/>
+                   value={formik.values[minValueName]}
+                   onChange={value => {
+                     formik.setFieldValue(minValueName, value);
+                     formik.setFieldTouched(minValueName, true);
+                   }}/>
 
       <div className="floatRight">
         <InputNumber min={min}
                      max={max}
                      step={step}
-                     value={maxValue}
-                     onChange={value => setFieldValue(maxValueName, value)}/>
+                     value={formik.values[maxValueName]}
+                     onChange={value => {
+                       formik.setFieldValue(maxValueName, value);
+                       formik.setFieldTouched(maxValueName, true);
+                     }}/>
       </div>
     </Field>
   );
