@@ -246,5 +246,38 @@ describe('query form', () => {
         });
       });
     });
+
+    describe('endDateTime', () => {
+      let endDateTimeField;
+
+      beforeEach(() => {
+        endDateTimeField = within(screen.queryByText('End date/time:').parentElement)
+          .queryByRole('textbox');
+      });
+
+      describe('entering not a valid date', () => {
+        test('input value changes to valid date', async () => {
+          userEvent.clear(endDateTimeField);
+          await userEvent.type(endDateTimeField, 'notDate{enter}', {delay: 1});
+
+          expect(endDateTimeField).toHaveValue(moment(new Date()).format('yy-MM-DD hh:mm:ss'));
+        });
+      });
+
+      describe('removing date value', () => {
+        let removeDateButton;
+
+        beforeEach(() => {
+          removeDateButton = within(screen.queryByText('End date/time:').parentElement)
+            .queryByRole('img', { name: 'close-circle' });
+        });
+
+        test('error is shown', async () => {
+          userEvent.click(removeDateButton);
+          await waitFor(() =>
+            expect(screen.queryByText('Valid date should be selected')).toBeInTheDocument());
+        });
+      });
+    });
   });
 });
