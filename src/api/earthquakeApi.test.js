@@ -48,7 +48,7 @@ describe('earthquakes api', () => {
         expect(fetchMock.calls().length).toEqual(1);
 
         const [url] = fetchMock.calls()[0];
-        expect(url).toEqual('/earthquakes?limit=testLimit&minMagnitude=testMinMagnitude&maxMagnitude=testMaxMagnitude&startTime=1991-03-21T21%3A40%3A13-05%3A00&endTime=1991-03-21T21%3A40%3A14-05%3A00&minDepth=testMinDepth&maxDepth=testMaxDepth');
+        expect(url).toEqual('/earthquakes?limit=testLimit&minMagnitude=testMinMagnitude&maxMagnitude=testMaxMagnitude&startTime=1991-03-21T21%3A40%3A13%2B00%3A00&endTime=1991-03-21T21%3A40%3A14%2B00%3A00&minDepth=testMinDepth&maxDepth=testMaxDepth');
       });
     });
   });

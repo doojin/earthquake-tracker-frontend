@@ -78,7 +78,7 @@
   "scripts": {
     "start": "PORT=3001 node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "DISABLE_NEW_JSX_TRANSFORM=true node scripts/test.js",
+    "test": "DISABLE_NEW_JSX_TRANSFORM=true TZ=utc node scripts/test.js",
     "lint": "eslint ."
   },
   "eslintConfig": {
