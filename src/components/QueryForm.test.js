@@ -162,5 +162,38 @@ describe('query form', () => {
         });
       });
     });
+
+    describe('maximal magnitude field', () => {
+      let maxMagnitudeField;
+
+      beforeEach(() => {
+        [, maxMagnitudeField] = within(screen.queryByText('Magnitude:').parentElement)
+          .queryAllByRole('spinbutton');
+      });
+
+      describe('entering not a number to maximal magnitude', () => {
+        test('error is shown', async () => {
+          userEvent.clear(maxMagnitudeField);
+          await userEvent.type(maxMagnitudeField, 'notNumber', {delay: 1});
+          expect(screen.queryByText('Maximal magnitude should be a valid number')).toBeInTheDocument();
+        });
+      });
+
+      describe('entering maximal magnitude value less than allowed', () => {
+        test('error is shown', async () => {
+          userEvent.clear(maxMagnitudeField);
+          await userEvent.type(maxMagnitudeField, '-1', {delay: 1});
+          expect(screen.queryByText('Minimal magnitude is 0')).toBeInTheDocument();
+        });
+      });
+
+      describe('entering maximal magnitude value greater than allowed', () => {
+        test('error is shown', async () => {
+          userEvent.clear(maxMagnitudeField);
+          await userEvent.type(maxMagnitudeField, '11', {delay: 1});
+          expect(screen.queryByText('Maximal magnitude is 10')).toBeInTheDocument();
+        });
+      });
+    });
   });
 });
