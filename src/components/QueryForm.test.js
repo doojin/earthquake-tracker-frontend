@@ -8,16 +8,18 @@ import moment from 'moment';
 
 describe('query form', () => {
   let store;
+  let originalDate;
 
   beforeEach(() => {
+    originalDate = Date.now();
     store = configureStore({
       reducer: {
         query: () => ({
           limit: 0,
           minMagnitude: 0,
           maxMagnitude: 0,
-          startDateTime: Date.now(),
-          endDateTime: Date.now(),
+          startDateTime: originalDate,
+          endDateTime: originalDate,
           minDepth: 0,
           maxDepth: 0
         })
@@ -49,6 +51,14 @@ describe('query form', () => {
   });
 
   describe('form validation', () => {
+    let limitField;
+    let minMagnitudeField;
+    let maxMagnitudeField;
+    let startDateTimeField;
+    let removeStartDateTimeButton;
+    let endDateTimeField;
+    let removeEndDateTimeButton;
+
     beforeEach(() => {
       store = configureStore({
         reducer: {
@@ -69,15 +79,26 @@ describe('query form', () => {
           <QueryForm/>
         </Provider>
       );
+
+      limitField = screen.queryByRole('spinbutton', { name: 'Limit:' });
+
+      [minMagnitudeField, maxMagnitudeField] =
+        within(screen.queryByText('Magnitude:').parentElement).queryAllByRole('spinbutton');
+
+      startDateTimeField = within(screen.queryByText('Start date/time:').parentElement)
+        .queryByRole('textbox');
+
+      removeStartDateTimeButton = within(screen.queryByText('Start date/time:').parentElement)
+        .queryByRole('img', { name: 'close-circle' });
+
+      endDateTimeField = within(screen.queryByText('End date/time:').parentElement)
+        .queryByRole('textbox');
+
+      removeEndDateTimeButton = within(screen.queryByText('End date/time:').parentElement)
+        .queryByRole('img', { name: 'close-circle' });
     });
 
     describe('limit field', () => {
-      let limitField;
-
-      beforeEach(() => {
-          limitField = screen.queryByRole('spinbutton', { name: 'Limit:' });
-      });
-
       describe('entering not number', () => {
         test('error is shown', async () => {
           userEvent.clear(limitField);
@@ -114,14 +135,6 @@ describe('query form', () => {
     });
 
     describe('minimal magnitude field', () => {
-      let minMagnitudeField;
-      let maxMagnitudeField;
-
-      beforeEach(() => {
-        [minMagnitudeField, maxMagnitudeField] = within(screen.queryByText('Magnitude:').parentElement)
-          .queryAllByRole('spinbutton');
-      });
-
       describe('entering not a number to minimal magnitude', () => {
         test('error is shown', async () => {
           userEvent.clear(minMagnitudeField);
@@ -165,13 +178,6 @@ describe('query form', () => {
     });
 
     describe('maximal magnitude field', () => {
-      let maxMagnitudeField;
-
-      beforeEach(() => {
-        [, maxMagnitudeField] = within(screen.queryByText('Magnitude:').parentElement)
-          .queryAllByRole('spinbutton');
-      });
-
       describe('entering not a number to maximal magnitude', () => {
         test('error is shown', async () => {
           userEvent.clear(maxMagnitudeField);
@@ -198,36 +204,18 @@ describe('query form', () => {
     });
 
     describe('startDateTime', () => {
-      let startDateTimeField;
-      let endDateTimeField;
-
-      beforeEach(() => {
-        startDateTimeField = within(screen.queryByText('Start date/time:').parentElement)
-          .queryByRole('textbox');
-
-        endDateTimeField = within(screen.queryByText('End date/time:').parentElement)
-          .queryByRole('textbox');
-      });
-
       describe('entering not a valid date', () => {
         test('input value changes to valid date', async () => {
           userEvent.clear(startDateTimeField);
           await userEvent.type(startDateTimeField, 'notDate{enter}', {delay: 1});
 
-          expect(startDateTimeField).toHaveValue(moment(new Date()).format('yy-MM-DD hh:mm:ss'));
+          expect(startDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD hh:mm:ss'));
         });
       });
 
       describe('removing date value', () => {
-        let removeDateButton;
-
-        beforeEach(() => {
-          removeDateButton = within(screen.queryByText('Start date/time:').parentElement)
-            .queryByRole('img', { name: 'close-circle' });
-        });
-
         test('error is shown', async () => {
-          userEvent.click(removeDateButton);
+          userEvent.click(removeStartDateTimeButton);
           await waitFor(() =>
             expect(screen.queryByText('Valid date should be selected')).toBeInTheDocument());
         });
@@ -247,33 +235,20 @@ describe('query form', () => {
       });
     });
 
+    // noinspection DuplicatedCode
     describe('endDateTime', () => {
-      let endDateTimeField;
-
-      beforeEach(() => {
-        endDateTimeField = within(screen.queryByText('End date/time:').parentElement)
-          .queryByRole('textbox');
-      });
-
       describe('entering not a valid date', () => {
         test('input value changes to valid date', async () => {
           userEvent.clear(endDateTimeField);
           await userEvent.type(endDateTimeField, 'notDate{enter}', {delay: 1});
 
-          expect(endDateTimeField).toHaveValue(moment(new Date()).format('yy-MM-DD hh:mm:ss'));
+          expect(endDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD hh:mm:ss'));
         });
       });
 
       describe('removing date value', () => {
-        let removeDateButton;
-
-        beforeEach(() => {
-          removeDateButton = within(screen.queryByText('End date/time:').parentElement)
-            .queryByRole('img', { name: 'close-circle' });
-        });
-
         test('error is shown', async () => {
-          userEvent.click(removeDateButton);
+          userEvent.click(removeEndDateTimeButton);
           await waitFor(() =>
             expect(screen.queryByText('Valid date should be selected')).toBeInTheDocument());
         });
