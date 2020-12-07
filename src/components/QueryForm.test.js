@@ -1,9 +1,10 @@
 import React from 'react';
-import {render, screen, fireEvent, within} from '@testing-library/react';
+import {render, screen, fireEvent, within, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import QueryForm from './QueryForm';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
+import moment from 'moment';
 
 describe('query form', () => {
   let store;
@@ -192,6 +193,56 @@ describe('query form', () => {
           userEvent.clear(maxMagnitudeField);
           await userEvent.type(maxMagnitudeField, '11', {delay: 1});
           expect(screen.queryByText('Maximal magnitude is 10')).toBeInTheDocument();
+        });
+      });
+    });
+
+    describe('startDateTime', () => {
+      let startDateTimeField;
+      let endDateTimeField;
+
+      beforeEach(() => {
+        startDateTimeField = within(screen.queryByText('Start date/time:').parentElement)
+          .queryByRole('textbox');
+
+        endDateTimeField = within(screen.queryByText('End date/time:').parentElement)
+          .queryByRole('textbox');
+      });
+
+      describe('entering not a valid date', () => {
+        test('input value changes to valid date', async () => {
+          userEvent.clear(startDateTimeField);
+          await userEvent.type(startDateTimeField, 'notDate{enter}', {delay: 1});
+
+          expect(startDateTimeField).toHaveValue(moment(new Date()).format('yy-MM-DD hh:mm:ss'));
+        });
+      });
+
+      describe('removing date value', () => {
+        let removeDateButton;
+
+        beforeEach(() => {
+          removeDateButton = within(screen.queryByText('Start date/time:').parentElement)
+            .queryByRole('img', { name: 'close-circle' });
+        });
+
+        test('error is shown', async () => {
+          userEvent.click(removeDateButton);
+          await waitFor(() =>
+            expect(screen.queryByText('Valid date should be selected')).toBeInTheDocument());
+        });
+      });
+
+      describe('setting start date greater than end date', () => {
+        test('error is shown', async () => {
+          userEvent.clear(startDateTimeField);
+          await userEvent.type(startDateTimeField, '1991-03-21 21:40:00{enter}', {delay: 1});
+
+          userEvent.clear(endDateTimeField);
+          await userEvent.type(endDateTimeField, '1991-03-20 21:40:00{enter}', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Start date can\'t be greater than end date')).toBeInTheDocument());
         });
       });
     });
