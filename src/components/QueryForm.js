@@ -24,7 +24,7 @@ export default function QueryForm() {
       .number()
       .typeError('Minimal magnitude should be a valid number')
       .min(0, 'Minimal magnitude is 0')
-      .max(5, 'Maximal magnitude is 10')
+      .max(10, 'Maximal magnitude is 10')
       .when('maxMagnitude', (maxMagnitude, schema) => {
         return !isNaN(maxMagnitude) ?
           schema.max(maxMagnitude, 'Minimal magnitude can\'t be grater than maximal magnitude') :
