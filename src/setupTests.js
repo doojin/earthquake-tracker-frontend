@@ -4,6 +4,8 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 import { configure } from '@testing-library/dom';
+import i18n from 'i18next';
+import {initReactI18next} from 'react-i18next';
 
 configure({ throwSuggestions: true });
 
@@ -13,3 +15,12 @@ global.matchMedia = global.matchMedia || function () {
     removeListener: jest.fn(),
   };
 };
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: {}
+    }
+  },
+  lng: 'en'
+});
