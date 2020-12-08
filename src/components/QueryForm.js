@@ -111,7 +111,7 @@ export default function QueryForm() {
             {/*  </Switch>*/}
             {/*</div>*/}
 
-            <div className="field text-center">
+            <div className="SearchButton">
               <Button onClick={formik.handleSubmit}>
                 Search Earthquakes
               </Button>

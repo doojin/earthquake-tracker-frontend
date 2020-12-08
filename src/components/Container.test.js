@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Container from './Container';
-
+ 
 describe('Container', () => {
   beforeEach(() => {
     render(
@@ -14,13 +14,13 @@ describe('Container', () => {
     const leftColumn = screen.queryByText('left child');
 
     expect(leftColumn).toBeInTheDocument();
-    expect(leftColumn).toHaveClass('col-1');
+    expect(leftColumn).toHaveClass('ant-col-1');
   });
 
   test('renders right column', () => {
     const rightColumn = screen.queryByText('right child');
 
     expect(rightColumn).toBeInTheDocument();
-    expect(rightColumn).toHaveClass('col-2');
+    expect(rightColumn).toHaveClass('ant-col-2');
   });
 });

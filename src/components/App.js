@@ -29,8 +29,8 @@ function App() {
   return (
     <React.Fragment>
       <DataLoadingIndicator/>
-      <Container leftColumn={{ size: 3, className: 'queryForm', children: <QueryForm/> }}
-                 rightColumn={{ size: 9, className: 'earthquakeMap', children: earthquakeMap }}/>
+      <Container leftColumn={{ size: 6, className: 'queryForm', children: <QueryForm/> }}
+                 rightColumn={{ size: 18, className: 'earthquakeMap', children: earthquakeMap }}/>
     </React.Fragment>
   );
 }

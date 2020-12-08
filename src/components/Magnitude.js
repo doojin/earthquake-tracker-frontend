@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from 'react-bootstrap';
+import {Badge} from 'antd';
 import PropTypes from 'prop-types';
 
 Magnitude.propTypes = {
@@ -7,19 +7,15 @@ Magnitude.propTypes = {
 };
 
 export default function Magnitude({ magnitude }) {
-  let variant = 'success';
+  let background = '#00910c';
 
   if (magnitude > 3) {
-    variant = 'warning';
+    background = '#968200';
   }
 
   if (magnitude > 5) {
-    variant = 'danger';
+    background = 'rgb(157, 35, 35)';
   }
 
-  return (
-    <Badge pill variant={ variant }>
-      { magnitude }
-    </Badge>
-  );
+  return <Badge count={magnitude} style={{backgroundColor: background}}/>;
 }
