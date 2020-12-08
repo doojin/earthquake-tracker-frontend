@@ -7,9 +7,7 @@ import userEvent from '@testing-library/user-event';
 describe('date time field', () => {
   test('renders date/time input', () => {
     renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
-      <DateTimeField name="date"
-                     value={formik.values.date}
-                     setFieldValue={formik.setFieldValue}/>
+      <DateTimeField name="date" formik={formik}/>
     ));
 
     expect(screen.queryByRole('textbox')).toHaveValue('1991-03-21 21:40:13');
@@ -17,9 +15,7 @@ describe('date time field', () => {
 
   test('date/time selection widget not shown by default', () => {
     renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
-      <DateTimeField name="date"
-                     value={formik.values.date}
-                     setFieldValue={formik.setFieldValue}/>
+      <DateTimeField name="date" formik={formik}/>
     ));
 
     expect(document.querySelector('.ant-picker-dropdown')).not.toBeInTheDocument();
@@ -28,10 +24,7 @@ describe('date time field', () => {
   describe('label property passed', () => {
     beforeEach(() => {
       renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
-        <DateTimeField name="date"
-                       value={formik.values.date}
-                       label="my date/time picker"
-                       setFieldValue={formik.setFieldValue}/>
+        <DateTimeField name="date" label="my date/time picker" formik={formik}/>
       ));
     });
 
@@ -48,9 +41,7 @@ describe('date time field', () => {
   describe('label property not passed', () => {
     beforeEach(() => {
       renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
-        <DateTimeField name="date"
-                       value={formik.values.date}
-                       setFieldValue={formik.setFieldValue}/>
+        <DateTimeField name="date" formik={formik}/>
       ));
     });
 
@@ -62,9 +53,7 @@ describe('date time field', () => {
   describe('user clicks date/time input', () => {
     beforeEach(() => {
       renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
-        <DateTimeField name="date"
-                       value={formik.values.date}
-                       setFieldValue={formik.setFieldValue}/>
+        <DateTimeField name="date" formik={formik}/>
       ));
 
       userEvent.click(screen.queryByRole('textbox'));
@@ -78,9 +67,7 @@ describe('date time field', () => {
   describe('user selects date and time', () => {
     beforeEach(() => {
       renderForm({date: new Date(1991, 2, 21, 21, 40, 13).getTime()})(formik => (
-        <DateTimeField name="date"
-                       value={formik.values.date}
-                       setFieldValue={formik.setFieldValue}/>
+        <DateTimeField name="date" formik={formik}/>
       ));
     });
 

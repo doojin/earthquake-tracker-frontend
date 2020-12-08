@@ -72,12 +72,13 @@
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.0",
     "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "5.1.4"
+    "workbox-webpack-plugin": "5.1.4",
+    "yup": "^0.30.0"
   },
   "scripts": {
     "start": "PORT=3001 node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "DISABLE_NEW_JSX_TRANSFORM=true node scripts/test.js",
+    "test": "DISABLE_NEW_JSX_TRANSFORM=true TZ=utc node scripts/test.js",
     "lint": "eslint ."
   },
   "eslintConfig": {

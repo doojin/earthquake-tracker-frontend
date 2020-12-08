@@ -6,25 +6,25 @@ import moment from 'moment';
 
 DateTimeField.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.number,
-  setFieldValue: PropTypes.func.isRequired,
+  formik: PropTypes.object.isRequired,
   label: PropTypes.string
 };
 
-export default function DateTimeField({name, value, setFieldValue, label}) {
+export default function DateTimeField({name, formik, label}) {
   const onChange = value => {
     const timestamp = value !== null ? new Date(value).getTime() : null;
-    setFieldValue(name, timestamp);
+    formik.setFieldValue(name, timestamp);
+    formik.setFieldTouched(name);
   };
 
   return (
-    <Field name={name} label={label} labelBottomMargin={true}>
+    <Field name={name} label={label} formik={formik} labelBottomMargin={true}>
 
       <DatePicker id={name}
                   showTime={true}
                   size="large"
                   onChange={onChange}
-                  value={value && moment(value)}
+                  value={formik.values[name] && moment(formik.values[name])}
                   className="fullWidth"/>
     </Field>
   );
