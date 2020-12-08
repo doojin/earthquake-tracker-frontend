@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Col, Container as BootstrapContainer, Row} from "react-bootstrap";
+import {Row, Col} from 'antd';
 import './Container.less';
 
 const ColumnType = PropTypes.shape({
@@ -16,16 +16,16 @@ Container.propTypes = {
 
 export default function Container(props) {
   return (
-    <BootstrapContainer fluid className="Container">
+    <div className="Container">
       <Row className="ContainerRow">
-        <Col className={props.leftColumn.className} xs={props.leftColumn.size}>
+        <Col className={props.leftColumn.className} span={props.leftColumn.size}>
           {props.leftColumn.children}
         </Col>
 
-        <Col className={props.rightColumn.className} xs={props.rightColumn.size}>
+        <Col className={props.rightColumn.className} span={props.rightColumn.size}>
           {props.rightColumn.children}
         </Col>
       </Row>
-    </BootstrapContainer>
+    </div>
   );
 }

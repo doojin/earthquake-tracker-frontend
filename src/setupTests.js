@@ -6,3 +6,10 @@ import '@testing-library/jest-dom';
 import { configure } from '@testing-library/dom';
 
 configure({ throwSuggestions: true });
+
+global.matchMedia = global.matchMedia || function () {
+  return {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+  };
+};
