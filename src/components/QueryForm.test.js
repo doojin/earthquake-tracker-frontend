@@ -34,20 +34,20 @@ describe('query form', () => {
       </Provider>
     );
 
-    expect(screen.queryByText('Limit:')).toBeInTheDocument();
-    expect(screen.queryByRole('spinbutton', { name: 'Limit:' })).toBeInTheDocument();
+    expect(screen.queryByText('limit:')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'limit:' })).toBeInTheDocument();
 
-    expect(screen.queryByText('Magnitude:')).toBeInTheDocument();
-    expect(screen.queryByRole('spinbutton', { name: 'Magnitude:' })).toBeInTheDocument();
+    expect(screen.queryByText('magnitude:')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'magnitude:' })).toBeInTheDocument();
 
-    expect(screen.queryByText('Start date/time:')).toBeInTheDocument();
-    expect(screen.queryByRole('textbox', { name: 'Start date/time:' })).toBeInTheDocument();
+    expect(screen.queryByText('start.date.time:')).toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: 'start.date.time:' })).toBeInTheDocument();
 
-    expect(screen.queryByText('End date/time:')).toBeInTheDocument();
-    expect(screen.queryByRole('textbox', { name: 'End date/time:' })).toBeInTheDocument();
+    expect(screen.queryByText('end.date.time:')).toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: 'end.date.time:' })).toBeInTheDocument();
 
-    expect(screen.queryByText('Depth (km):')).toBeInTheDocument();
-    expect(screen.queryByRole('spinbutton', { name: 'Depth (km):' })).toBeInTheDocument();
+    expect(screen.queryByText('depth (km):')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'depth (km):' })).toBeInTheDocument();
   });
 
   describe('form validation', () => {
@@ -82,25 +82,25 @@ describe('query form', () => {
         </Provider>
       );
 
-      limitField = screen.queryByRole('spinbutton', { name: 'Limit:' });
+      limitField = screen.queryByRole('spinbutton', { name: 'limit:' });
 
       [minMagnitudeField, maxMagnitudeField] =
-        within(screen.queryByText('Magnitude:').parentElement).queryAllByRole('spinbutton');
+        within(screen.queryByText('magnitude:').parentElement).queryAllByRole('spinbutton');
 
-      startDateTimeField = within(screen.queryByText('Start date/time:').parentElement)
+      startDateTimeField = within(screen.queryByText('start.date.time:').parentElement)
         .queryByRole('textbox');
 
-      removeStartDateTimeButton = within(screen.queryByText('Start date/time:').parentElement)
+      removeStartDateTimeButton = within(screen.queryByText('start.date.time:').parentElement)
         .queryByRole('img', { name: 'close-circle' });
 
-      endDateTimeField = within(screen.queryByText('End date/time:').parentElement)
+      endDateTimeField = within(screen.queryByText('end.date.time:').parentElement)
         .queryByRole('textbox');
 
-      removeEndDateTimeButton = within(screen.queryByText('End date/time:').parentElement)
+      removeEndDateTimeButton = within(screen.queryByText('end.date.time:').parentElement)
         .queryByRole('img', { name: 'close-circle' });
 
       [minDepthField, maxDepthField] =
-        within(screen.queryByText('Depth (km):').parentElement).queryAllByRole('spinbutton');
+        within(screen.queryByText('depth (km):').parentElement).queryAllByRole('spinbutton');
     });
 
     describe('limit field', () => {
@@ -110,7 +110,7 @@ describe('query form', () => {
           await userEvent.type(limitField, 'notNumber', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Limit should be a valid number')).toBeInTheDocument());
+            expect(screen.queryByText('limit.error.invalid.number')).toBeInTheDocument());
         });
       });
 
@@ -120,7 +120,7 @@ describe('query form', () => {
           await userEvent.type(limitField, '0', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Minimal limit is 100')).toBeInTheDocument());
+            expect(screen.queryByText('limit.error.minimal 100')).toBeInTheDocument());
         });
       });
 
@@ -130,7 +130,7 @@ describe('query form', () => {
           await userEvent.type(limitField, '1001', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Maximal limit is 1000')).toBeInTheDocument());
+            expect(screen.queryByText('limit.error.maximum 1000')).toBeInTheDocument());
         });
       });
 
@@ -152,7 +152,7 @@ describe('query form', () => {
           await userEvent.type(minMagnitudeField, 'notNumber', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Minimal magnitude should be a valid number')).toBeInTheDocument());
+            expect(screen.queryByText('min.magnitude.error.invalid.number')).toBeInTheDocument());
         });
       });
 
@@ -162,7 +162,7 @@ describe('query form', () => {
           await userEvent.type(minMagnitudeField, '-1', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Minimal magnitude is 0')).toBeInTheDocument());
+            expect(screen.queryByText('magnitude.error.minimal 0')).toBeInTheDocument());
         });
       });
 
@@ -172,7 +172,7 @@ describe('query form', () => {
           await userEvent.type(minMagnitudeField, '11', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Minimal magnitude can\'t be grater than maximal magnitude'))
+            expect(screen.queryByText('min.magnitude.error.min.greater.than.max'))
               .toBeInTheDocument());
         });
       });
@@ -186,7 +186,7 @@ describe('query form', () => {
           await userEvent.type(maxMagnitudeField, '5', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Minimal magnitude can\'t be grater than maximal magnitude'))
+            expect(screen.queryByText('min.magnitude.error.min.greater.than.max'))
               .toBeInTheDocument());
         });
       });
@@ -197,7 +197,7 @@ describe('query form', () => {
         test('error is shown', async () => {
           userEvent.clear(maxMagnitudeField);
           await userEvent.type(maxMagnitudeField, 'notNumber', {delay: 1});
-          expect(screen.queryByText('Maximal magnitude should be a valid number')).toBeInTheDocument();
+          expect(screen.queryByText('max.magnitude.error.invalid.number')).toBeInTheDocument();
         });
       });
 
@@ -207,7 +207,7 @@ describe('query form', () => {
           await userEvent.type(maxMagnitudeField, '-1', {delay: 1});
           
           await waitFor(() => 
-            expect(screen.queryByText('Minimal magnitude is 0')).toBeInTheDocument());
+            expect(screen.queryByText('magnitude.error.minimal 0')).toBeInTheDocument());
         });
       });
 
@@ -217,7 +217,7 @@ describe('query form', () => {
           await userEvent.type(maxMagnitudeField, '11', {delay: 1});
 
           await waitFor(() => 
-            expect(screen.queryByText('Maximal magnitude is 10')).toBeInTheDocument());
+            expect(screen.queryByText('magnitude.error.maximal 10')).toBeInTheDocument());
         });
       });
     });
@@ -251,7 +251,7 @@ describe('query form', () => {
           await userEvent.type(endDateTimeField, '1991-03-20 21:40:00{enter}', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Start date can\'t be greater than end date')).toBeInTheDocument());
+            expect(screen.queryByText('start.date.error.start.greater.than.end')).toBeInTheDocument());
         });
       });
     });
@@ -273,7 +273,7 @@ describe('query form', () => {
           userEvent.click(removeEndDateTimeButton);
 
           await waitFor(() => 
-            expect(screen.queryByText('Valid date should be selected')).not.toBeInTheDocument());
+            expect(screen.queryByText('date.error.invalid.date')).not.toBeInTheDocument());
         });
       });
     });
@@ -285,7 +285,7 @@ describe('query form', () => {
           await userEvent.type(minDepthField, 'notNumber', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Minimal depth should be a valid number')).toBeInTheDocument());
+            expect(screen.queryByText('min.depth.error.invalid.number')).toBeInTheDocument());
         });
       });
 
@@ -295,7 +295,7 @@ describe('query form', () => {
           await userEvent.type(minDepthField, '-101', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Minimal depth is -100km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.minimum -100 km')).toBeInTheDocument());
         });
       });
 
@@ -305,7 +305,7 @@ describe('query form', () => {
           await userEvent.type(minDepthField, '1001', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Maximal depth is 1000km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.maximum 1000 km')).toBeInTheDocument());
         });
       });
 
@@ -318,7 +318,7 @@ describe('query form', () => {
           await userEvent.type(maxDepthField, '199', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Minimal depth can\'t be greater than maximal depth')).toBeInTheDocument());
+            expect(screen.queryByText('min.depth.error.greater.than.max')).toBeInTheDocument());
         });
       });
     });
@@ -330,7 +330,7 @@ describe('query form', () => {
           await userEvent.type(maxDepthField, 'notNumber', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Maximal depth should be a valid number')).toBeInTheDocument());
+            expect(screen.queryByText('max.depth.error.invalid.number')).toBeInTheDocument());
         });
       });
 
@@ -340,7 +340,7 @@ describe('query form', () => {
           await userEvent.type(maxDepthField, '-101', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Minimal depth is -100km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.minimum -100 km')).toBeInTheDocument());
         });
       });
 
@@ -350,7 +350,7 @@ describe('query form', () => {
           await userEvent.type(maxDepthField, '1001', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('Maximal depth is 1000km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.maximum 1000 km')).toBeInTheDocument());
         });
       });
     });

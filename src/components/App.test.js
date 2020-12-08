@@ -4,18 +4,28 @@ import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 import App from './App';
 
-jest.mock('./Container', () => props => (
-  <div>
-    <div>leftColumnSize:{props.leftColumn.size}</div>
-    <div>rightColumnSize:{props.rightColumn.size}</div>
-    <div>leftColumnChildren:{props.leftColumn.children}</div>
-    <div>rightColumnChildren:{props.rightColumn.children}</div>
-  </div>
-));
+jest.mock('./Container', () => {
+  return props => (
+    <div>
+      <div>leftColumnSize:{props.leftColumn.size}</div>
+      <div>rightColumnSize:{props.rightColumn.size}</div>
+      <div>leftColumnChildren:{props.leftColumn.children}</div>
+      <div>rightColumnChildren:{props.rightColumn.children}</div>
+    </div>
+  );
+});
 
-jest.mock('./DataLoadingIndicator', () => () => 'component:DataLoadingIndicator');
-jest.mock('./QueryForm', () => () => 'component:QueryForm');
-jest.mock('./EarthquakeMap', () => () => 'component:EarthquakeMap');
+jest.mock('./DataLoadingIndicator', () => {
+  return () => 'component:DataLoadingIndicator';
+});
+
+jest.mock('./QueryForm', () => {
+  return () => 'component:QueryForm';
+});
+
+jest.mock('./EarthquakeMap', () => {
+  return () => 'component:EarthquakeMap';
+});
 
 describe('App component', () => {
   beforeEach(() => {

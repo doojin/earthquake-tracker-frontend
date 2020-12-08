@@ -3,6 +3,7 @@ import './EarthquakeDescription.less';
 import PropTypes from 'prop-types';
 import RelativeDate from './RelativeDate';
 import Magnitude from './Magnitude';
+import {useTranslation} from 'react-i18next';
 
 TitleRow.propTypes = {
   title: PropTypes.string.isRequired
@@ -43,8 +44,10 @@ DateRow.propTypes = {
 };
 
 function DateRow({timestamp}) {
+  const {t} = useTranslation('translation');
+  const label = `${t('when')}:`;
   const date = <RelativeDate timestamp={timestamp}/>;
-  return (<DataRow label="when:" value={date}/>);
+  return (<DataRow label={label} value={date}/>);
 }
 
 MagnitudeRow.propTypes = {
@@ -52,8 +55,10 @@ MagnitudeRow.propTypes = {
 };
 
 function MagnitudeRow({magnitude}) {
+  const {t} = useTranslation('translation');
+  const label = `${t('magnitude')}:`;
   const magnitudeComponent = <Magnitude magnitude={magnitude}/>;
-  return (<DataRow label="magnitude:" value={magnitudeComponent}/>);
+  return (<DataRow label={label} value={magnitudeComponent}/>);
 }
 
 DepthRow.propTypes = {
@@ -61,7 +66,10 @@ DepthRow.propTypes = {
 };
 
 function DepthRow({depth}) {
-  return (<DataRow label="depth:" value={`${depth.toFixed(2)}km`}/>);
+  const {t} = useTranslation('translation');
+  const label = `${t('depth')}:`;
+  const km = `${t('km')}`;
+  return (<DataRow label={label} value={`${depth.toFixed(2)} ${km}`}/>);
 }
 
 CoordinatesRow.propTypes = {
@@ -71,7 +79,11 @@ CoordinatesRow.propTypes = {
 
 function CoordinatesRow({latitude, longitude}) {
   const coordinates = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
-  return (<DataRow label="lat, long:" value={coordinates}/>);
+  const {t} = useTranslation('translation');
+  const lat = t('latitude');
+  const long = t('longitude');
+  const label = `${lat}, ${long}:`;
+  return (<DataRow label={label} value={coordinates}/>);
 }
 
 EarthquakeDescription.propTypes = {

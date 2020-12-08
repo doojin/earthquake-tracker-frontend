@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Field from './Field';
 import moment from 'moment';
 import {normalizeValue} from '../../utils/form';
+import { useTranslation } from 'react-i18next';
 
 DateTimeField.propTypes = {
   name: PropTypes.string.isRequired,
@@ -12,6 +13,8 @@ DateTimeField.propTypes = {
 };
 
 export default function DateTimeField({name, formik, label}) {
+  const {t} = useTranslation('translation');
+
   const onChange = value => {
     const timestamp = normalizeValue(value) !== undefined ? 
       new Date(value).getTime() : 
@@ -27,6 +30,7 @@ export default function DateTimeField({name, formik, label}) {
       <DatePicker id={name}
                   showTime={true}
                   size="large"
+                  placeholder={t('select.date')}
                   onChange={onChange}
                   value={formik.values[name] && moment(formik.values[name])}
                   className="fullWidth"/>

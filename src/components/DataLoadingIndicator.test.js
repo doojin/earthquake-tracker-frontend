@@ -25,7 +25,7 @@ describe('data loading indicator', () => {
         </Provider>
       );
 
-      expect(screen.queryByText('We\'re loading your data')).toBeInTheDocument();
+      expect(screen.queryByText('loading.data')).toBeInTheDocument();
     });
   });
 
@@ -47,7 +47,7 @@ describe('data loading indicator', () => {
         </Provider>
       );
 
-      expect(screen.queryByText('We\'re loading your data')).not.toBeInTheDocument();
+      expect(screen.queryByText('loading.data')).not.toBeInTheDocument();
     });
   });
 });

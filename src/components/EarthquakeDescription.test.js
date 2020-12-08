@@ -46,7 +46,7 @@ describe('EarthquakeDescription', () => {
   });
 
   test('renders earthquake coordinates', () => {
-    const coordinatesLabel = screen.queryByRole('cell', {name: 'lat, long:'});
+    const coordinatesLabel = screen.queryByRole('cell', {name: 'latitude, longitude:'});
     expect(coordinatesLabel).toBeInTheDocument();
 
     const coordinatesValue = coordinatesLabel.nextSibling;
