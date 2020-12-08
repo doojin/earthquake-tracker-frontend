@@ -1,6 +1,8 @@
 import React from 'react';
 import EarthquakeMarker from './EarthquakeMarker';
 import {render, screen} from '@testing-library/react';
+import {Provider} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
 
 jest.mock('@react-google-maps/api', () => ({
   Marker: (props) => (
@@ -14,9 +16,24 @@ jest.mock('@react-google-maps/api', () => ({
 }));
 
 describe('EarthquakeMarker', () => {
+  let store;
+
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        earthquakes: () => ({})
+      }
+    });
+  });
+
   test('renders Google Map marker', () => {
     const earthquake = {position: {longitude: 1, latitude: 2}};
-    render(<EarthquakeMarker earthquake={earthquake}/>);
+
+    render(
+      <Provider store={store}>
+        <EarthquakeMarker earthquake={earthquake}/>
+      </Provider>
+    );
 
     const marker = screen.queryByText(/marker/);
 
@@ -33,7 +50,11 @@ describe('EarthquakeMarker', () => {
         }
       };
 
-      render(<EarthquakeMarker earthquake={earthquake}/>);
+      render(
+        <Provider store={store}>
+          <EarthquakeMarker earthquake={earthquake}/>
+        </Provider>
+      );
 
       expect(screen.queryByText(/marker/))
         .toHaveTextContent('icon: http://maps.google.com/mapfiles/ms/icons/red-dot.png');
@@ -50,7 +71,11 @@ describe('EarthquakeMarker', () => {
         }
       };
 
-      render(<EarthquakeMarker earthquake={earthquake}/>);
+      render(
+        <Provider store={store}>
+          <EarthquakeMarker earthquake={earthquake}/>
+        </Provider>
+      );
 
       expect(screen.queryByText(/marker/))
         .toHaveTextContent('icon: http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
@@ -67,7 +92,11 @@ describe('EarthquakeMarker', () => {
         }
       };
 
-      render(<EarthquakeMarker earthquake={earthquake}/>);
+      render(
+        <Provider store={store}>
+          <EarthquakeMarker earthquake={earthquake}/>
+        </Provider>
+      );
 
       expect(screen.queryByText(/marker/))
         .toHaveTextContent('icon: http://maps.google.com/mapfiles/ms/icons/green-dot.png');

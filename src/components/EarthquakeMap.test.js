@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import EarthquakeMap from './EarthquakeMap';
+import {Provider} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
 
 // noinspection JSUnusedGlobalSymbols
 jest.mock('@react-google-maps/api', () => ({
@@ -16,8 +18,20 @@ jest.mock('@react-google-maps/api', () => ({
 }));
 
 describe('EarthquakeMap', () => {
-  test('renders Google map with markers', async () => {
-    const earthquakes = [
+  let store;
+  let earthquakes;
+
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        earthquakes: () => ({
+          items: [],
+          active: null
+        })
+      }
+    });
+
+    earthquakes = [
       {
         id: 'earthquake1',
         position: {
@@ -33,8 +47,14 @@ describe('EarthquakeMap', () => {
         }
       }
     ];
+  });
 
-    render(<EarthquakeMap apiKey="test" earthquakes={ earthquakes } />);
+  test('renders Google map with markers', async () => {
+    render(
+      <Provider store={store}>
+        <EarthquakeMap apiKey="test" earthquakes={ earthquakes } />
+      </Provider>
+    );
 
     const markers = screen.queryAllByText(/marker/);
     expect(markers.length).toEqual(2);

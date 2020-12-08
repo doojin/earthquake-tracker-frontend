@@ -1,7 +1,13 @@
-import earthquakesReducer, { getAllEarthquakes, fetchEarthquakes } from './earthquakesSlice';
+import earthquakesReducer, {
+  getAllEarthquakes,
+  fetchEarthquakes,
+  getActiveEarthquakeId,
+  setActiveEarthquake,
+  removeActiveEarthquake
+} from './earthquakesSlice';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { getEarthquakes } from '../../api/earthquakesApi';
+import {getEarthquakes} from '../../api/earthquakesApi';
 
 jest.mock('../../api/earthquakesApi', () => ({
   getEarthquakes: jest.fn()
@@ -10,10 +16,12 @@ jest.mock('../../api/earthquakesApi', () => ({
 describe('earthquakes slice', () => {
   describe('getAllEarthquakes', () => {
     let state = {
-      earthquakes: [
-        'earthquake1',
-        'earthquake2'
-      ]
+      earthquakes: {
+        items: [
+          'earthquake1',
+          'earthquake2'
+        ]
+      }
     };
 
     test('returns array of earthquakes', () => {
@@ -21,17 +29,79 @@ describe('earthquakes slice', () => {
     });
   });
 
+  describe('getActiveEarthquakeId', () => {
+    let state;
+
+    beforeEach(() => {
+      state = {
+        earthquakes: {
+          active: 'testEarthquakeId'
+        }
+      };
+    });
+
+    test('returns active earthquake id', () => {
+      expect(getActiveEarthquakeId(state)).toEqual('testEarthquakeId');
+    });
+  });
+
+  describe('setActiveEarthquake', () => {
+    let state;
+
+    beforeEach(() => {
+      state = {
+        active: 'earthquake1'
+      };
+    });
+
+    test('updates active earthquake id', () => {
+      const updatedState = earthquakesReducer(state, setActiveEarthquake('earthquake2'));
+
+      expect(updatedState).toEqual({
+        active: 'earthquake2'
+      });
+    });
+  });
+
+  describe('removeActiveEarthquake', () => {
+    let state;
+
+    beforeEach(() => {
+      state = {
+        active: 'earthquake1'
+      };
+    });
+
+    test('removes active earthquake id', () => {
+      const updatedState = earthquakesReducer(state, removeActiveEarthquake());
+
+      expect(updatedState).toEqual({
+        active: null
+      });
+    });
+  });
+
   describe('fetchEarthquakes', () => {
     test('updates earthquakes', () => {
       const action = fetchEarthquakes.fulfilled(['earthquake1', 'earthquake2']);
 
-      const updatedState = earthquakesReducer([], action);
+      const updatedState = earthquakesReducer({
+        items: [],
+        active: null
+      }, action);
 
-      expect(updatedState).toEqual(['earthquake1', 'earthquake2']);
+      expect(updatedState).toEqual({
+        items: ['earthquake1', 'earthquake2'],
+        active: null
+      });
     });
 
     test('fetches earthquakes through earthquake api', async () => {
-      const store = configureStore([thunk])({});
+      const store = configureStore([thunk])({
+        items: [],
+        active: null
+      });
+
       const query = {};
 
       await store.dispatch(fetchEarthquakes(query));
@@ -41,7 +111,33 @@ describe('earthquakes slice', () => {
     });
 
     test('cleans earthquakes when started fetching', () => {
-      expect(earthquakesReducer(['earthquake'], fetchEarthquakes.pending())).toEqual([]);
+      expect(earthquakesReducer({
+        items: ['earthquake'],
+        active: null
+      }, fetchEarthquakes.pending())).toEqual({
+        items: [],
+        active: null
+      });
+    });
+
+    test('cleans active earthquake when started fetching', () => {
+      expect(earthquakesReducer({
+        items: [],
+        active: 'notNull'
+      }, fetchEarthquakes.pending())).toEqual({
+        items: [],
+        active: null
+      });
+    });
+
+    test('cleans active earthquake when finished fetching', () => {
+      expect(earthquakesReducer({
+        items: [],
+        active: 'notNull'
+      }, fetchEarthquakes.fulfilled([]))).toEqual({
+        items: [],
+        active: null
+      });
     });
   });
 });

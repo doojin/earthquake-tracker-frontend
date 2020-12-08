@@ -20,7 +20,11 @@ jest.mock('./EarthquakeMap', () => () => 'component:EarthquakeMap');
 describe('App component', () => {
   beforeEach(() => {
     const store = configureStore({
-      reducer: () => ({})
+      reducer: {
+        earthquakes: () => ({
+          items: []
+        })
+      }
     });
 
     render(

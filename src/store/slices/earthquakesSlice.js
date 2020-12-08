@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getEarthquakes } from '../../api/earthquakesApi';
 
-export const getAllEarthquakes = state => state.earthquakes;
+export const getAllEarthquakes = state => state.earthquakes.items;
+export const getActiveEarthquakeId = state => state.earthquakes.active;
 
 export const fetchEarthquakes = createAsyncThunk(
   'earthquakes/fetch',
@@ -12,14 +13,33 @@ export const fetchEarthquakes = createAsyncThunk(
 
 const earthquakesSlice = createSlice({
   name: 'earthquakes',
-  initialState: [],
-  reducers: {},
+  initialState: {
+    items: [],
+    active: null
+  },
+  reducers: {
+    setActiveEarthquake(state, action) {
+      state.active = action.payload;
+    },
+    removeActiveEarthquake(state) {
+      state.active = null;
+    }
+  },
   extraReducers: {
-    [fetchEarthquakes.pending]: () => [],
+    [fetchEarthquakes.pending]: state => {
+      state.items = [];
+      state.active = null;
+    },
     [fetchEarthquakes.fulfilled]: (state, action) => {
-      return action.payload;
+      state.items = action.payload;
+      state.active = null;
     }
   }
 });
+
+export const {
+  setActiveEarthquake,
+  removeActiveEarthquake
+} = earthquakesSlice.actions;
 
 export default earthquakesSlice.reducer;
