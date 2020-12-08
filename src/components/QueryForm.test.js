@@ -108,7 +108,9 @@ describe('query form', () => {
         test('error is shown', async () => {
           userEvent.clear(limitField);
           await userEvent.type(limitField, 'notNumber', {delay: 1});
-          expect(screen.queryByText('Limit should be a valid number')).toBeInTheDocument();
+
+          await waitFor(() => 
+            expect(screen.queryByText('Limit should be a valid number')).toBeInTheDocument());
         });
       });
 
@@ -116,7 +118,9 @@ describe('query form', () => {
         test('error is shown', async () => {
           userEvent.clear(limitField);
           await userEvent.type(limitField, '0', {delay: 1});
-          expect(screen.queryByText('Minimal limit is 100')).toBeInTheDocument();
+
+          await waitFor(() => 
+            expect(screen.queryByText('Minimal limit is 100')).toBeInTheDocument());
         });
       });
 
@@ -124,7 +128,9 @@ describe('query form', () => {
         test('error is shown', async () => {
           userEvent.clear(limitField);
           await userEvent.type(limitField, '1001', {delay: 1});
-          expect(screen.queryByText('Maximal limit is 1000')).toBeInTheDocument();
+
+          await waitFor(() => 
+            expect(screen.queryByText('Maximal limit is 1000')).toBeInTheDocument());
         });
       });
 
@@ -134,7 +140,7 @@ describe('query form', () => {
           await userEvent.type(limitField, '101', {delay: 1});
           fireEvent.blur(limitField);
 
-          expect(limitField).toHaveValue('101');
+          await waitFor(() => expect(limitField).toHaveValue('101'));
         });
       });
     });
@@ -145,7 +151,8 @@ describe('query form', () => {
           userEvent.clear(minMagnitudeField);
           await userEvent.type(minMagnitudeField, 'notNumber', {delay: 1});
 
-          expect(screen.queryByText('Minimal magnitude should be a valid number')).toBeInTheDocument();
+          await waitFor(() => 
+            expect(screen.queryByText('Minimal magnitude should be a valid number')).toBeInTheDocument());
         });
       });
 
@@ -154,7 +161,8 @@ describe('query form', () => {
           userEvent.clear(minMagnitudeField);
           await userEvent.type(minMagnitudeField, '-1', {delay: 1});
 
-          expect(screen.queryByText('Minimal magnitude is 0')).toBeInTheDocument();
+          await waitFor(() => 
+            expect(screen.queryByText('Minimal magnitude is 0')).toBeInTheDocument());
         });
       });
 
@@ -163,8 +171,9 @@ describe('query form', () => {
           userEvent.clear(minMagnitudeField);
           await userEvent.type(minMagnitudeField, '11', {delay: 1});
 
-          expect(screen.queryByText('Minimal magnitude can\'t be grater than maximal magnitude'))
-            .toBeInTheDocument();
+          await waitFor(() => 
+            expect(screen.queryByText('Minimal magnitude can\'t be grater than maximal magnitude'))
+              .toBeInTheDocument());
         });
       });
 
@@ -176,8 +185,9 @@ describe('query form', () => {
           userEvent.clear(maxMagnitudeField);
           await userEvent.type(maxMagnitudeField, '5', {delay: 1});
 
-          expect(screen.queryByText('Minimal magnitude can\'t be grater than maximal magnitude'))
-            .toBeInTheDocument();
+          await waitFor(() => 
+            expect(screen.queryByText('Minimal magnitude can\'t be grater than maximal magnitude'))
+              .toBeInTheDocument());
         });
       });
     });
@@ -195,7 +205,9 @@ describe('query form', () => {
         test('error is shown', async () => {
           userEvent.clear(maxMagnitudeField);
           await userEvent.type(maxMagnitudeField, '-1', {delay: 1});
-          expect(screen.queryByText('Minimal magnitude is 0')).toBeInTheDocument();
+          
+          await waitFor(() => 
+            expect(screen.queryByText('Minimal magnitude is 0')).toBeInTheDocument());
         });
       });
 
@@ -203,7 +215,9 @@ describe('query form', () => {
         test('error is shown', async () => {
           userEvent.clear(maxMagnitudeField);
           await userEvent.type(maxMagnitudeField, '11', {delay: 1});
-          expect(screen.queryByText('Maximal magnitude is 10')).toBeInTheDocument();
+
+          await waitFor(() => 
+            expect(screen.queryByText('Maximal magnitude is 10')).toBeInTheDocument());
         });
       });
     });
@@ -214,15 +228,17 @@ describe('query form', () => {
           userEvent.clear(startDateTimeField);
           await userEvent.type(startDateTimeField, 'notDate{enter}', {delay: 1});
 
-          expect(startDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD HH:mm:ss'));
+          await waitFor(() => 
+            expect(startDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD HH:mm:ss')));
         });
       });
 
       describe('removing date value', () => {
         test('error is shown', async () => {
           userEvent.click(removeStartDateTimeButton);
-          await waitFor(() =>
-            expect(screen.queryByText('Valid date should be selected')).toBeInTheDocument());
+
+          await waitFor(() => 
+            expect(screen.queryByText('Valid date should be selected')).not.toBeInTheDocument());
         });
       });
 
@@ -247,15 +263,17 @@ describe('query form', () => {
           userEvent.clear(endDateTimeField);
           await userEvent.type(endDateTimeField, 'notDate{enter}', {delay: 1});
 
-          expect(endDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD HH:mm:ss'));
+          await waitFor(() => 
+            expect(endDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD HH:mm:ss')));
         });
       });
 
       describe('removing date value', () => {
         test('error is shown', async () => {
           userEvent.click(removeEndDateTimeButton);
-          await waitFor(() =>
-            expect(screen.queryByText('Valid date should be selected')).toBeInTheDocument());
+
+          await waitFor(() => 
+            expect(screen.queryByText('Valid date should be selected')).not.toBeInTheDocument());
         });
       });
     });
