@@ -10,57 +10,60 @@ import RangeSliderField from './fields/RangeSliderField';
 import DateTimeField from './fields/DateTimeField';
 
 import './QueryForm.less';
+import { useTranslation } from 'react-i18next';
 
 export default function QueryForm() {
+  const {t} = useTranslation('translation');
   const query = useSelector(getQuery);
   const dispatch = useDispatch();
+
   const schema = Yup.object().shape({
     limit: Yup
       .number()
-      .typeError('Limit should be a valid number')
-      .min(100, 'Minimal limit is 100')
-      .max(1000, 'Maximal limit is 1000'),
+      .typeError(t('limit.error.invalid.number'))
+      .min(100, `${t('limit.error.minimal')} 100`)
+      .max(1000, `${t('limit.error.maximum')} 1000`),
     minMagnitude: Yup
       .number()
-      .typeError('Minimal magnitude should be a valid number')
-      .min(0, 'Minimal magnitude is 0')
-      .max(10, 'Maximal magnitude is 10')
+      .typeError(t('min.magnitude.error.invalid.number'))
+      .min(0, `${t('magnitude.error.minimal')} 0`)
+      .max(10, `${t('magnitude.error.maximal')} 10`)
       .when('maxMagnitude', (maxMagnitude, schema) => {
         return !isNaN(maxMagnitude) ?
-          schema.max(maxMagnitude, 'Minimal magnitude can\'t be grater than maximal magnitude') :
+          schema.max(maxMagnitude, t('min.magnitude.error.min.greater.than.max')) :
           schema;
       }),
       maxMagnitude: Yup
         .number()
-        .typeError('Maximal magnitude should be a valid number')
-        .min(0, 'Minimal magnitude is 0')
-        .max(10, 'Maximal magnitude is 10'),
+        .typeError(t('max.magnitude.error.invalid.number'))
+        .min(0, `${t('magnitude.error.minimal')} 0`)
+        .max(10, `${t('magnitude.error.maximal')} 10`),
       startDateTime: Yup
         .number()
-        .typeError('Valid date should be selected')
+        .typeError(t('date.error.invalid.date'))
         .when('endDateTime', (endDateTime, schema) => {
           return !isNaN(endDateTime) ?
-            schema.max(endDateTime, 'Start date can\'t be greater than end date') :
+            schema.max(endDateTime, t('start.date.error.start.greater.than.end')) :
             schema;
         }),
       endDateTime: Yup
         .number()
-        .typeError('Valid date should be selected'),
+        .typeError(t('date.error.invalid.date')),
       minDepth: Yup
         .number()
-        .typeError('Minimal depth should be a valid number')
-        .min(-100, 'Minimal depth is -100km')
-        .max(1000, 'Maximal depth is 1000km')
+        .typeError(t('min.depth.error.invalid.number'))
+        .min(-100, `${t('depth.error.minimum')} -100 ${t('km')}`)
+        .max(1000, `${t('depth.error.maximum')} 1000 ${t('km')}`)
         .when('maxDepth', (maxDepth, schema) => {
           return maxDepth ?
-            schema.max(maxDepth, 'Minimal depth can\'t be greater than maximal depth') :
+            schema.max(maxDepth, t('min.depth.error.greater.than.max')) :
             schema;
         }),
       maxDepth: Yup
         .number()
-        .typeError('Maximal depth should be a valid number')
-        .min(-100, 'Minimal depth is -100km')
-        .max(1000, 'Maximal depth is 1000km')
+        .typeError(t('max.depth.error.invalid.number'))
+        .min(-100, `${t('depth.error.minimum')} -100 ${t('km')}`)
+        .max(1000, `${t('depth.error.maximum')} 1000 ${t('km')}`)
   });
 
   return (
@@ -73,7 +76,7 @@ export default function QueryForm() {
 
             <SliderField name="limit"
                          formik={formik}
-                         label="Limit:"
+                         label={`${t('limit')}:`}
                          min={100}
                          max={1000}
                          step={50}/>
@@ -81,23 +84,23 @@ export default function QueryForm() {
             <RangeSliderField minValueName="minMagnitude"
                               maxValueName="maxMagnitude"
                               formik={formik}
-                              label="Magnitude:"
+                              label={`${t('magnitude')}:`}
                               min={0}
                               max={10}
                               step={0.5}/>
 
             <DateTimeField name="startDateTime"
                            formik={formik}
-                           label="Start date/time:"/>
+                           label={`${t('start.date.time')}:`}/>
 
             <DateTimeField name="endDateTime"
                            formik={formik}
-                           label="End date/time:"/>
+                           label={`${t('end.date.time')}:`}/>
 
             <RangeSliderField minValueName="minDepth"
                               maxValueName="maxDepth"
                               formik={formik}
-                              label="Depth (km):"
+                              label={`${t('depth')} (${t('km')}):`}
                               min={-100}
                               max={1000}
                               step={50}/>
@@ -113,7 +116,7 @@ export default function QueryForm() {
 
             <div className="SearchButton">
               <Button onClick={formik.handleSubmit}>
-                Search Earthquakes
+                {t('search.earthquakes')}
               </Button>
             </div>
 

@@ -66,7 +66,7 @@ const resources = {
     en: 'Maximal magnitude should be a valid number',
     ru: 'Максимальная магнитуда должна быть числом'
   },
-  'data.error.invalid.date': {
+  'date.error.invalid.date': {
     en: 'Valid date should be selected',
     ru: 'Выбрана некорректная дата'
   },
