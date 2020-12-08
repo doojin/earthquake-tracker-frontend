@@ -58,6 +58,8 @@ describe('query form', () => {
     let removeStartDateTimeButton;
     let endDateTimeField;
     let removeEndDateTimeButton;
+    let minDepthField;
+    let maxDepthField;
 
     beforeEach(() => {
       store = configureStore({
@@ -96,6 +98,9 @@ describe('query form', () => {
 
       removeEndDateTimeButton = within(screen.queryByText('End date/time:').parentElement)
         .queryByRole('img', { name: 'close-circle' });
+
+      [minDepthField, maxDepthField] =
+        within(screen.queryByText('Depth (km):').parentElement).queryAllByRole('spinbutton');
     });
 
     describe('limit field', () => {
@@ -209,7 +214,7 @@ describe('query form', () => {
           userEvent.clear(startDateTimeField);
           await userEvent.type(startDateTimeField, 'notDate{enter}', {delay: 1});
 
-          expect(startDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD hh:mm:ss'));
+          expect(startDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD HH:mm:ss'));
         });
       });
 
@@ -242,7 +247,7 @@ describe('query form', () => {
           userEvent.clear(endDateTimeField);
           await userEvent.type(endDateTimeField, 'notDate{enter}', {delay: 1});
 
-          expect(endDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD hh:mm:ss'));
+          expect(endDateTimeField).toHaveValue(moment(originalDate).format('yy-MM-DD HH:mm:ss'));
         });
       });
 
@@ -251,6 +256,83 @@ describe('query form', () => {
           userEvent.click(removeEndDateTimeButton);
           await waitFor(() =>
             expect(screen.queryByText('Valid date should be selected')).toBeInTheDocument());
+        });
+      });
+    });
+
+    describe('minimal depth field', () => {
+      describe('entering not a number', () => {
+        test('error is shown', async () => {
+          userEvent.clear(minDepthField);
+          await userEvent.type(minDepthField, 'notNumber', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Minimal depth should be a valid number')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering value smaller than allowed', () => {
+        test('error is shown', async () => {
+          userEvent.clear(minDepthField);
+          await userEvent.type(minDepthField, '-101', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Minimal depth is -100km')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering value greater than allowed', () => {
+        test('error is shown', async () => {
+          userEvent.clear(minDepthField);
+          await userEvent.type(minDepthField, '1001', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Maximal depth is 1000km')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering minimal depth greater than maximal depth', () => {
+        test('error is shown', async () => {
+          userEvent.clear(minDepthField);
+          await userEvent.type(minDepthField, '200', {delay: 1});
+
+          userEvent.clear(maxDepthField);
+          await userEvent.type(maxDepthField, '199', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Minimal depth can\'t be greater than maximal depth')).toBeInTheDocument());
+        });
+      });
+    });
+
+    describe('maximal depth field', () => {
+      describe('entering not a number', () => {
+        test('error is shown', async () => {
+          userEvent.clear(maxDepthField);
+          await userEvent.type(maxDepthField, 'notNumber', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Maximal depth should be a valid number')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering value smaller than allowed', () => {
+        test('error is shown', async () => {
+          userEvent.clear(maxDepthField);
+          await userEvent.type(maxDepthField, '-101', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Minimal depth is -100km')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering value greater than allowed', () => {
+        test('error is shown', async () => {
+          userEvent.clear(maxDepthField);
+          await userEvent.type(maxDepthField, '1001', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('Maximal depth is 1000km')).toBeInTheDocument());
         });
       });
     });
