@@ -3,6 +3,7 @@ import {DatePicker} from 'antd';
 import PropTypes from 'prop-types';
 import Field from './Field';
 import moment from 'moment';
+import {normalizeValue} from '../../utils/form';
 
 DateTimeField.propTypes = {
   name: PropTypes.string.isRequired,
@@ -12,7 +13,10 @@ DateTimeField.propTypes = {
 
 export default function DateTimeField({name, formik, label}) {
   const onChange = value => {
-    const timestamp = value !== null ? new Date(value).getTime() : null;
+    const timestamp = normalizeValue(value) !== undefined ? 
+      new Date(value).getTime() : 
+      undefined;
+      
     formik.setFieldValue(name, timestamp);
     formik.setFieldTouched(name);
   };

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {InputNumber, Slider} from 'antd';
 import Field from './Field';
+import {normalizeValue} from '../../utils/form';
 
 RangeSliderField.propTypes = {
   label: PropTypes.string,
@@ -31,8 +32,8 @@ export default function RangeSliderField({
               range
               value={[formik.values[minValueName], formik.values[maxValueName]]}
               onChange={([min, max]) => {
-                formik.setFieldValue(minValueName, min);
-                formik.setFieldValue(maxValueName, max);
+                formik.setFieldValue(minValueName, normalizeValue(min));
+                formik.setFieldValue(maxValueName, normalizeValue(max));
                 formik.setFieldTouched(minValueName, true);
                 formik.setFieldTouched(maxValueName, true);
               }}/>
@@ -43,7 +44,7 @@ export default function RangeSliderField({
                    step={step}
                    value={formik.values[minValueName]}
                    onChange={value => {
-                     formik.setFieldValue(minValueName, value);
+                     formik.setFieldValue(minValueName, normalizeValue(value));
                      formik.setFieldTouched(minValueName, true);
                    }}/>
 
@@ -53,7 +54,7 @@ export default function RangeSliderField({
                      step={step}
                      value={formik.values[maxValueName]}
                      onChange={value => {
-                       formik.setFieldValue(maxValueName, value);
+                       formik.setFieldValue(maxValueName, normalizeValue(value));
                        formik.setFieldTouched(maxValueName, true);
                      }}/>
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {InputNumber, Slider} from 'antd';
 import Field from './Field';
+import {normalizeValue} from '../../utils/form';
 
 SliderField.propTypes = {
   label: PropTypes.string,
@@ -21,7 +22,7 @@ export default function SliderField({ label, name, formik, min, max, step }) {
               step={step}
               value={formik.values[name]}
               onChange={value => {
-                formik.setFieldValue(name, value);
+                formik.setFieldValue(name, normalizeValue(value));
                 formik.setFieldTouched(name, true);
               }}/>
 
@@ -31,7 +32,7 @@ export default function SliderField({ label, name, formik, min, max, step }) {
                    step={step}
                    value={formik.values[name]}
                    onChange={value => {
-                     formik.setFieldValue(name, value);
+                     formik.setFieldValue(name, normalizeValue(value));
                      formik.setFieldTouched(name, true);
                    }}/>
     </Field>
