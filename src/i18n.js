@@ -130,3 +130,5 @@ i18n
     keySeparator: true,
     lng: 'en'
   });
+
+export default i18n;
