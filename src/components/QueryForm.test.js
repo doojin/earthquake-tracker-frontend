@@ -162,7 +162,7 @@ describe('query form', () => {
           await userEvent.type(minMagnitudeField, '-1', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('magnitude.error.minimal 0')).toBeInTheDocument());
+            expect(screen.queryByText('magnitude.error.minimal')).toBeInTheDocument());
         });
       });
 
@@ -207,7 +207,7 @@ describe('query form', () => {
           await userEvent.type(maxMagnitudeField, '-1', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('magnitude.error.minimal 0')).toBeInTheDocument());
+            expect(screen.queryByText('magnitude.error.minimal')).toBeInTheDocument());
         });
       });
 
@@ -217,7 +217,7 @@ describe('query form', () => {
           await userEvent.type(maxMagnitudeField, '11', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('magnitude.error.maximal 10')).toBeInTheDocument());
+            expect(screen.queryByText('magnitude.error.maximal')).toBeInTheDocument());
         });
       });
     });

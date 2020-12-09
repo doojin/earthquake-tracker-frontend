@@ -51,12 +51,12 @@ const resources = {
     ru: 'Минимальная магнитуда должна быть числом'
   },
   'magnitude.error.minimal': {
-    en: 'Minimal magnitude is',
-    ru: 'Минимально допупстимая магнитуда:'
+    en: 'Minimal magnitude is {{amount}}',
+    ru: 'Минимально допупстимая магнитуда: {{amount}}'
   },
   'magnitude.error.maximal': {
-    en: 'Maximal magnitude is',
-    ru: 'Максимально допупстимая магнитуда:'
+    en: 'Maximal magnitude is {{amount}}',
+    ru: 'Максимально допупстимая магнитуда: {{amount}}'
   },
   'min.magnitude.error.min.greater.than.max': {
     en: 'Minimal magnitude can\'t be grater than maximal magnitude',

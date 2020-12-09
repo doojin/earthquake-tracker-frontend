@@ -26,8 +26,8 @@ export default function QueryForm() {
     minMagnitude: Yup
       .number()
       .typeError(t('min.magnitude.error.invalid.number'))
-      .min(0, `${t('magnitude.error.minimal')} 0`)
-      .max(10, `${t('magnitude.error.maximal')} 10`)
+      .min(0, t('magnitude.error.minimal', {amount: 0}))
+      .max(10, t('magnitude.error.maximal', {amount: 10}))
       .when('maxMagnitude', (maxMagnitude, schema) => {
         return !isNaN(maxMagnitude) ?
           schema.max(maxMagnitude, t('min.magnitude.error.min.greater.than.max')) :
@@ -36,8 +36,8 @@ export default function QueryForm() {
       maxMagnitude: Yup
         .number()
         .typeError(t('max.magnitude.error.invalid.number'))
-        .min(0, `${t('magnitude.error.minimal')} 0`)
-        .max(10, `${t('magnitude.error.maximal')} 10`),
+        .min(0, t('magnitude.error.minimal', {amount: 0}))
+        .max(10, t('magnitude.error.maximal', {amount: 10})),
       startDateTime: Yup
         .number()
         .typeError(t('date.error.invalid.date'))
