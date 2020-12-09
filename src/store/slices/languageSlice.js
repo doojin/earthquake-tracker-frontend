@@ -1,24 +1,37 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {enUS as en, ru} from 'date-fns/locale';
+import {enUS as enDateLocale, ru as ruDateLocale} from 'date-fns/locale';
+import enAntdLocale from 'antd/lib/locale/en_US';
+import ruAntdLocale from 'antd/lib/locale/ru_RU';
 
-const locales = { en, ru };
+const dateLocales = {
+  en: enDateLocale,
+  ru: ruDateLocale
+};
+
+const antdLocales = {
+  en: enAntdLocale,
+  ru: ruAntdLocale
+};
 
 const languageSlice = createSlice({
   name: 'language',
   initialState: {
     lang: 'en',
-    locale: en
+    dateLocale: enDateLocale,
+    antdLocale: enAntdLocale
   },
   reducers: {
     setLanguage(state, action) {
       state.lang = action.payload;
-      state.locale = locales[action.payload];
+      state.dateLocale = dateLocales[action.payload];
+      state.antdLocale = antdLocales[action.payload];
     }
   }
 });
 
 export const getLanguage = state => state.language.lang;
-export const getLocale = state => state.language.locale;
+export const getDateLocale = state => state.language.dateLocale;
+export const getAntdLocale = state => state.language.antdLocale;
 
 export const {setLanguage} = languageSlice.actions;
 

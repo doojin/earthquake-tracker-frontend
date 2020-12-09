@@ -1,13 +1,17 @@
 import languageReducer, {
+  getAntdLocale,
   getLanguage,
-  getLocale,
+  getDateLocale,
   setLanguage
 } from './languageSlice';
 
 jest.mock('date-fns/locale', () => ({
-  enUS: 'enUSLocale',
-  ru: 'ruLocale'
+  enUS: 'enDateLocale',
+  ru: 'ruDateLocale'
 }));
+
+jest.mock('antd/lib/locale/en_US', () => 'enAntdLocale');
+jest.mock('antd/lib/locale/ru_RU', () => 'ruAntdLocale');
 
 describe('language slice', () => {
   describe('getLanguage', () => {
@@ -22,15 +26,27 @@ describe('language slice', () => {
     });
   });
 
-  describe('getLocale', () => {
+  describe('getDateLocale', () => {
     test('gets current system date locale', () => {
       const state = {
         language: {
-          locale: 'enLocale'
+          dateLocale: 'enDateLocale'
         }
       };
 
-      expect(getLocale(state)).toEqual('enLocale');
+      expect(getDateLocale(state)).toEqual('enDateLocale');
+    });
+  });
+
+  describe('getAntdLocale', () => {
+    test('gets current system antd locale', () => {
+      const state = {
+        language: {
+          antdLocale: 'enLocale'
+        }
+      };
+
+      expect(getAntdLocale(state)).toEqual('enLocale');
     });
   });
 
@@ -48,7 +64,15 @@ describe('language slice', () => {
 
       const updatedState = languageReducer(state, setLanguage('ru'));
 
-      expect(updatedState.locale).toEqual('ruLocale');
+      expect(updatedState.dateLocale).toEqual('ruDateLocale');
+    });
+
+    test('changes antd locale', () => {
+      const state = {};
+
+      const updatedState = languageReducer(state, setLanguage('ru'));
+
+      expect(updatedState.antdLocale).toEqual('ruAntdLocale');
     });
   });
 });
