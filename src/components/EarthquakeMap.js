@@ -30,7 +30,7 @@ export default function EarthquakeMap({ earthquakes, apiKey }) {
       <GoogleMap mapContainerClassName="EarthquakeMapContainer"
                  center={{ lat: 30, lng: -80 }}
                  zoom={ 3 }
-                 options={{ streetViewControl: false }}
+                 options={{ streetViewControl: false, mapTypeControl: false }}
                  onClick={() => dispatch(removeActiveEarthquake())}>
         { markers }
       </GoogleMap>
