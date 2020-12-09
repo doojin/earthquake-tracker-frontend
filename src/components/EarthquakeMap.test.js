@@ -1,12 +1,17 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {prettyDOM, render, screen} from '@testing-library/react';
 import EarthquakeMap from './EarthquakeMap';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 
 // noinspection JSUnusedGlobalSymbols
 jest.mock('@react-google-maps/api', () => ({
-    LoadScript: (props) => <div>{ props.children }</div>,
+    LoadScript: (props) => (
+      <div>
+        { props.children }
+        language: { props.language }
+      </div>
+    ),
     GoogleMap: (props) => <div>{ props.children }</div>,
     Marker: (props) => (
       <div>
@@ -27,6 +32,9 @@ describe('EarthquakeMap', () => {
         earthquakes: () => ({
           items: [],
           active: null
+        }),
+        language: () => ({
+          lang: 'en'
         })
       }
     });
@@ -61,5 +69,7 @@ describe('EarthquakeMap', () => {
 
     expect(markers[0]).toHaveTextContent('lat: 1, lng: 2');
     expect(markers[1]).toHaveTextContent('lat: 3, lng: 4');
+
+    expect(screen.queryByText('language: en')).toBeInTheDocument();
   });
 });
