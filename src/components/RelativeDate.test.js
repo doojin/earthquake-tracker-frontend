@@ -9,12 +9,12 @@ import {enUS, ru} from 'date-fns/locale';
 describe('RelativeDate', () => {
   let store;
 
-  describe('english locale', () => {
+  describe('english date locale', () => {
     beforeEach(() => {
       store = configureStore({
         reducer: {
           language: () => ({
-            locale: enUS
+            dateLocale: enUS
           })
         }
       });
@@ -34,12 +34,12 @@ describe('RelativeDate', () => {
     });
   });
 
-  describe('russian locale', () => {
+  describe('russian date locale', () => {
     beforeEach(() => {
       store = configureStore({
         reducer: {
           language: () => ({
-            locale: ru
+            dateLocale: ru
           })
         }
       });

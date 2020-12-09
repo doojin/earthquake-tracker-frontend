@@ -2,7 +2,7 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 import {useTranslation} from 'react-i18next';
-import {getLocale} from '../store/slices/languageSlice';
+import {getDateLocale} from '../store/slices/languageSlice';
 import {useSelector} from 'react-redux';
 
 RelativeDate.propTypes = {
@@ -11,7 +11,7 @@ RelativeDate.propTypes = {
 
 export default function RelativeDate({ timestamp }) {
   const {t} = useTranslation('translation');
-  const locale = useSelector(getLocale);
+  const locale = useSelector(getDateLocale);
 
   return (
     <span>
