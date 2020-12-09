@@ -18,19 +18,19 @@ describe('RelativeDate', () => {
           })
         }
       });
+    });
 
-      test('formats date correctly', () => {
-        const timestamp = subDays(Date.now(), 2).getTime();
+    test('formats date correctly', () => {
+      const timestamp = subDays(Date.now(), 2).getTime();
 
-        render(
-          <Provider store={store}>
-            <RelativeDate timestamp={ timestamp } />
-          </Provider>
-        );
+      render(
+        <Provider store={store}>
+          <RelativeDate timestamp={ timestamp } />
+        </Provider>
+      );
 
-        const formattedDate = screen.queryByText('2 days ago');
-        expect(formattedDate).toBeInTheDocument();
-      });
+      const formattedDate = screen.queryByText('2 days ago');
+      expect(formattedDate).toBeInTheDocument();
     });
   });
 
