@@ -1,7 +1,13 @@
 import languageReducer, {
   getLanguage,
+  getLocale,
   setLanguage
 } from './languageSlice';
+
+jest.mock('date-fns/locale', () => ({
+  enUS: 'enUSLocale',
+  ru: 'ruLocale'
+}));
 
 describe('language slice', () => {
   describe('getLanguage', () => {
@@ -16,15 +22,33 @@ describe('language slice', () => {
     });
   });
 
+  describe('getLocale', () => {
+    test('gets current system date locale', () => {
+      const state = {
+        language: {
+          locale: 'enLocale'
+        }
+      };
+
+      expect(getLocale(state)).toEqual('enLocale');
+    });
+  });
+
   describe('setLanguage', () => {
-    const state = {
-      lang: 'en'
-    };
+    test('changes system language', () => {
+      const state = {};
 
-    const updatedState = languageReducer(state, setLanguage('ru'));
+      const updatedState = languageReducer(state, setLanguage('ru'));
 
-    expect(updatedState).toEqual({
-      lang: 'ru'
+      expect(updatedState.lang).toEqual('ru');
+    });
+
+    test('changes date locale', () => {
+      const state = {};
+
+      const updatedState = languageReducer(state, setLanguage('ru'));
+
+      expect(updatedState.locale).toEqual('ruLocale');
     });
   });
 });
