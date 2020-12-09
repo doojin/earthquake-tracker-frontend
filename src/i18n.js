@@ -39,24 +39,24 @@ const resources = {
     ru: 'Лимит должен быть целым числом'
   },
   'limit.error.minimal': {
-    en: 'Minimal limit is',
-    ru: 'Миниально допустимый лимит:'
+    en: 'Minimal limit is {{amount}}',
+    ru: 'Миниально допустимый лимит: {{amount}}'
   },
   'limit.error.maximum': {
-    en: 'Maximal limit is',
-    ru: 'Максимально допустимый лимит:'
+    en: 'Maximal limit is {{amount}}',
+    ru: 'Максимально допустимый лимит: {{amount}}'
   },
   'min.magnitude.error.invalid.number': {
     en: 'Minimal magnitude should be a valid number',
     ru: 'Минимальная магнитуда должна быть числом'
   },
   'magnitude.error.minimal': {
-    en: 'Minimal magnitude is',
-    ru: 'Минимально допупстимая магнитуда:'
+    en: 'Minimal magnitude is {{amount}}',
+    ru: 'Минимально допупстимая магнитуда: {{amount}}'
   },
   'magnitude.error.maximal': {
-    en: 'Maximal magnitude is',
-    ru: 'Максимально допупстимая магнитуда:'
+    en: 'Maximal magnitude is {{amount}}',
+    ru: 'Максимально допупстимая магнитуда: {{amount}}'
   },
   'min.magnitude.error.min.greater.than.max': {
     en: 'Minimal magnitude can\'t be grater than maximal magnitude',
@@ -87,12 +87,12 @@ const resources = {
     ru: 'Минимальная глубина не может быть больше маскимальной'
   },
   'depth.error.minimum': {
-    en: 'Minimal depth is',
-    ru: 'Минимально допустимая глубина:'
+    en: 'Minimal depth is {{amount}} km',
+    ru: 'Минимально допустимая глубина: {{amount}} км'
   },
   'depth.error.maximum': {
-    en: 'Maximal depth is',
-    ru: 'Максимально допустимая глубина:'
+    en: 'Maximal depth is {{amount}} km',
+    ru: 'Максимально допустимая глубина: {{amount}} км'
   },
   'limit': {
     en: 'Limit',
@@ -130,3 +130,5 @@ i18n
     keySeparator: true,
     lng: 'en'
   });
+
+export default i18n;

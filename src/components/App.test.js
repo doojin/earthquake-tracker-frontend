@@ -19,8 +19,8 @@ jest.mock('./DataLoadingIndicator', () => {
   return () => 'component:DataLoadingIndicator';
 });
 
-jest.mock('./QueryForm', () => {
-  return () => 'component:QueryForm';
+jest.mock('./SideMenu', () => {
+  return () => 'component:SideMenu';
 });
 
 jest.mock('./EarthquakeMap', () => {
@@ -45,7 +45,7 @@ describe('App component', () => {
   });
 
   test('correctly renders component', () => {
-    expect(screen.queryByText('leftColumnChildren:component:QueryForm')).toBeInTheDocument();
+    expect(screen.queryByText('leftColumnChildren:component:SideMenu')).toBeInTheDocument();
     expect(screen.queryByText('rightColumnChildren:component:EarthquakeMap')).toBeInTheDocument();
 
     expect(screen.queryByText('leftColumnSize:6')).toBeInTheDocument();

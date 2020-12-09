@@ -25,7 +25,8 @@ export default function Field({children, name, secondaryName, formik, label, lab
   );
 
   const classNames = ['Field'];
-  if (formik.errors[name] && formik.touched[name]) {
+  if ((formik.errors[name] && formik.touched[name]) ||
+    (secondaryName && formik.errors[secondaryName] && formik.touched[secondaryName])) {
     classNames.push('Error');
   }
 

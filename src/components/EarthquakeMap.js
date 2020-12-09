@@ -4,7 +4,8 @@ import EarthquakeMarker from './EarthquakeMarker';
 import './EarthquakeMap.less';
 import {removeActiveEarthquake} from '../store/slices/earthquakesSlice';
 import PropTypes from 'prop-types';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getLanguage} from '../store/slices/languageSlice';
 
 EarthquakeMap.propTypes = {
   earthquakes: PropTypes.array.isRequired,
@@ -24,13 +25,14 @@ const createEarthquakeMarkers = earthquakes => {
 export default function EarthquakeMap({ earthquakes, apiKey }) {
   const markers = createEarthquakeMarkers(earthquakes);
   const dispatch = useDispatch();
+  const language = useSelector(getLanguage);
 
   return (
-    <LoadScript googleMapsApiKey={ apiKey }>
+    <LoadScript googleMapsApiKey={ apiKey } language={ language }>
       <GoogleMap mapContainerClassName="EarthquakeMapContainer"
                  center={{ lat: 30, lng: -80 }}
                  zoom={ 3 }
-                 options={{ streetViewControl: false }}
+                 options={{ streetViewControl: false, mapTypeControl: false }}
                  onClick={() => dispatch(removeActiveEarthquake())}>
         { markers }
       </GoogleMap>
