@@ -1,5 +1,5 @@
 import React from 'react';
-import {prettyDOM, render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import EarthquakeMap from './EarthquakeMap';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
