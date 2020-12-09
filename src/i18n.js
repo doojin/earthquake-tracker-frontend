@@ -39,12 +39,12 @@ const resources = {
     ru: 'Лимит должен быть целым числом'
   },
   'limit.error.minimal': {
-    en: 'Minimal limit is',
-    ru: 'Миниально допустимый лимит:'
+    en: 'Minimal limit is {{amount}}',
+    ru: 'Миниально допустимый лимит: {{amount}}'
   },
   'limit.error.maximum': {
-    en: 'Maximal limit is',
-    ru: 'Максимально допустимый лимит:'
+    en: 'Maximal limit is {{amount}}',
+    ru: 'Максимально допустимый лимит: {{amount}}'
   },
   'min.magnitude.error.invalid.number': {
     en: 'Minimal magnitude should be a valid number',

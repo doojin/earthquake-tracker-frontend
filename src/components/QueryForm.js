@@ -21,8 +21,8 @@ export default function QueryForm() {
     limit: Yup
       .number()
       .typeError(t('limit.error.invalid.number'))
-      .min(100, `${t('limit.error.minimal')} 100`)
-      .max(1000, `${t('limit.error.maximum')} 1000`),
+      .min(100, t('limit.error.minimal', {amount: 100}))
+      .max(1000, t('limit.error.maximum', {amount: 1000})),
     minMagnitude: Yup
       .number()
       .typeError(t('min.magnitude.error.invalid.number'))
