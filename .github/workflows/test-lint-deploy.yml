@@ -1,0 +1,30 @@
+name: test-lint-deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  test-lint-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v1
+
+      - name: Setup Node v15
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm test
