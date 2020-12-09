@@ -7,7 +7,9 @@ describe('language slice', () => {
   describe('getLanguage', () => {
     test('gets current system language', () => {
       const state = {
-        language: 'en'
+        language: {
+          lang: 'en'
+        }
       };
 
       expect(getLanguage(state)).toEqual('en');
@@ -15,10 +17,14 @@ describe('language slice', () => {
   });
 
   describe('setLanguage', () => {
-    const state = 'en';
+    const state = {
+      lang: 'en'
+    };
 
     const updatedState = languageReducer(state, setLanguage('ru'));
 
-    expect(updatedState).toEqual('ru');
+    expect(updatedState).toEqual({
+      lang: 'ru'
+    });
   });
 });
