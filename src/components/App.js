@@ -8,12 +8,15 @@ import DataLoadingIndicator from './DataLoadingIndicator';
 import 'antd/dist/antd.less';
 import './App.less';
 import SideMenu from './SideMenu';
+import {ConfigProvider} from 'antd';
+import {getAntdLocale} from '../store/slices/languageSlice';
 
 function App() {
   const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
 
   const dispatch = useDispatch();
   const query = useSelector(getQuery);
+  const antdLocale = useSelector(getAntdLocale);
   const earthquakes = useSelector(getAllEarthquakes);
 
   useEffect(() => dispatch(fetchEarthquakes(query)), [dispatch, query]);
@@ -25,11 +28,11 @@ function App() {
   );
 
   return (
-    <React.Fragment>
+    <ConfigProvider locale={antdLocale}>
       <DataLoadingIndicator/>
       <Container leftColumn={{ size: 6, className: 'queryForm', children: <SideMenu/> }}
                  rightColumn={{ size: 18, className: 'earthquakeMap', children: earthquakeMap }}/>
-    </React.Fragment>
+    </ConfigProvider>
   );
 }
 
