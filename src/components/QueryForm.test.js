@@ -295,7 +295,7 @@ describe('query form', () => {
           await userEvent.type(minDepthField, '-101', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('depth.error.minimum -100 km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.minimum')).toBeInTheDocument());
         });
       });
 
@@ -305,7 +305,7 @@ describe('query form', () => {
           await userEvent.type(minDepthField, '1001', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('depth.error.maximum 1000 km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.maximum')).toBeInTheDocument());
         });
       });
 
@@ -340,7 +340,7 @@ describe('query form', () => {
           await userEvent.type(maxDepthField, '-101', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('depth.error.minimum -100 km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.minimum')).toBeInTheDocument());
         });
       });
 
@@ -350,7 +350,7 @@ describe('query form', () => {
           await userEvent.type(maxDepthField, '1001', {delay: 1});
 
           await waitFor(() =>
-            expect(screen.queryByText('depth.error.maximum 1000 km')).toBeInTheDocument());
+            expect(screen.queryByText('depth.error.maximum')).toBeInTheDocument());
         });
       });
     });

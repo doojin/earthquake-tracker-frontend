@@ -87,12 +87,12 @@ const resources = {
     ru: 'Минимальная глубина не может быть больше маскимальной'
   },
   'depth.error.minimum': {
-    en: 'Minimal depth is',
-    ru: 'Минимально допустимая глубина:'
+    en: 'Minimal depth is {{amount}} km',
+    ru: 'Минимально допустимая глубина: {{amount}} км'
   },
   'depth.error.maximum': {
-    en: 'Maximal depth is',
-    ru: 'Максимально допустимая глубина:'
+    en: 'Maximal depth is {{amount}} km',
+    ru: 'Максимально допустимая глубина: {{amount}} км'
   },
   'limit': {
     en: 'Limit',

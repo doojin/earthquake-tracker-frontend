@@ -52,8 +52,8 @@ export default function QueryForm() {
       minDepth: Yup
         .number()
         .typeError(t('min.depth.error.invalid.number'))
-        .min(-100, `${t('depth.error.minimum')} -100 ${t('km')}`)
-        .max(1000, `${t('depth.error.maximum')} 1000 ${t('km')}`)
+        .min(-100, t('depth.error.minimum', {amount: -100}))
+        .max(1000, t('depth.error.maximum', {amount: 1000}))
         .when('maxDepth', (maxDepth, schema) => {
           return maxDepth ?
             schema.max(maxDepth, t('min.depth.error.greater.than.max')) :
@@ -62,8 +62,8 @@ export default function QueryForm() {
       maxDepth: Yup
         .number()
         .typeError(t('max.depth.error.invalid.number'))
-        .min(-100, `${t('depth.error.minimum')} -100 ${t('km')}`)
-        .max(1000, `${t('depth.error.maximum')} 1000 ${t('km')}`)
+        .min(-100, t('depth.error.minimum', {amount: -100}))
+        .max(1000, t('depth.error.maximum', {amount: 1000}))
   });
 
   return (
