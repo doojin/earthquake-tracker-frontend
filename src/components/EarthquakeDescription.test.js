@@ -2,18 +2,33 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import EarthquakeDescription from './EarthquakeDescription';
 import {subDays} from 'date-fns';
+import {Provider} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
 
 describe('EarthquakeDescription', () => {
+  let store;
+
 
   beforeEach(() => {
     const yesterdayTimestamp = subDays(Date.now(), 1).getTime();
+    store = configureStore({
+      reducer: {
+        language: () => ({
+          lang: 'en'
+        })
+      }
+    });
 
-    render(<EarthquakeDescription timestamp={yesterdayTimestamp}
-                                  latitude={20}
-                                  longitude={-20.1234567}
-                                  magnitude={1.55}
-                                  depth={1.2345}
-                                  title="Very Big Earthquake"/>);
+    render(
+      <Provider store={store}>
+        <EarthquakeDescription timestamp={yesterdayTimestamp}
+                               latitude={20}
+                               longitude={-20.1234567}
+                               magnitude={1.55}
+                               depth={1.2345}
+                               title="Very Big Earthquake"/>
+      </Provider>
+    );
   });
 
   test('renders earthquake title', () => {
