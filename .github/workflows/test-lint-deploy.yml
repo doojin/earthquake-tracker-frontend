@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - '*'
-
+      
 jobs:
   test-lint-deploy:
     runs-on: ubuntu-latest
@@ -28,3 +28,10 @@ jobs:
 
       - name: Run unit tests
         run: CI=true npm test
+
+      - name: Send deployment request
+        uses: wei/curl@v1
+        env: 
+          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+        with:
+          args: "-H 'webhook-secret: ${{ env.WEBHOOK_SECRET }}' http://1a6759587460.ngrok.io/hooks/redeploy-frontend"
