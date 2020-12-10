@@ -34,4 +34,4 @@ jobs:
         env: 
           WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         with:
-          args: "-H 'webhook-secret: ${{ env.WEBHOOK_SECRET }}' http://1a6759587460.ngrok.io/hooks/redeploy-frontend"
+          args: "-H 'webhook-secret: ${{ env.WEBHOOK_SECRET }}' http://eqtracker.tk:9000/hooks/redeploy-frontend"
