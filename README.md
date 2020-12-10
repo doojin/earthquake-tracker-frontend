@@ -1,5 +1,9 @@
 # Earthquake tracker frontend
 
+## Project status
+
+![test-lint-deploy](https://github.com/doojin/earthquake-tracker-frontend/workflows/test-lint-deploy/badge.svg)
+
 ## About
 
 Frontend of the earthquake tracker project: [service](http://eqtracker.tk) to display earthquakes online.
