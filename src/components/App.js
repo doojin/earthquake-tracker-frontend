@@ -29,6 +29,7 @@ function App() {
 
   return (
     <ConfigProvider locale={antdLocale}>
+      test
       <DataLoadingIndicator/>
       <Container leftColumn={{ size: 6, className: 'queryForm', children: <SideMenu/> }}
                  rightColumn={{ size: 18, className: 'earthquakeMap', children: earthquakeMap }}/>
