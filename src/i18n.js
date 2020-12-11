@@ -177,6 +177,10 @@ const resources = {
   'radius.error.maximum': {
     en: 'Maximal radius is {{amount}} km',
     ru: 'Максимально допустимый радиус: {{amount}} км'
+  },
+  'depth.km': {
+    en: 'Depth (km)',
+    ru: 'Глубина (км)'
   }
 };
 
