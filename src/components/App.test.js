@@ -24,8 +24,8 @@ jest.mock('./SideMenu', () => {
   return () => 'component:SideMenu';
 });
 
-jest.mock('./EarthquakeMap', () => {
-  return () => 'component:EarthquakeMap';
+jest.mock('./EarthquakeView', () => {
+  return () => 'component:EarthquakeView';
 });
 
 describe('App component', () => {
@@ -50,7 +50,7 @@ describe('App component', () => {
 
   test('correctly renders component', () => {
     expect(screen.queryByText('leftColumnChildren:component:SideMenu')).toBeInTheDocument();
-    expect(screen.queryByText('rightColumnChildren:component:EarthquakeMap')).toBeInTheDocument();
+    expect(screen.queryByText('rightColumnChildren:component:EarthquakeView')).toBeInTheDocument();
 
     expect(screen.queryByText('leftColumnSize:6')).toBeInTheDocument();
     expect(screen.queryByText('rightColumnSize:18')).toBeInTheDocument();

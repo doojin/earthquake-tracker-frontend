@@ -7,9 +7,10 @@ import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {getLanguage} from '../store/slices/languageSlice';
 
+const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
+
 EarthquakeMap.propTypes = {
-  earthquakes: PropTypes.array.isRequired,
-  apiKey: PropTypes.string.isRequired
+  earthquakes: PropTypes.array.isRequired
 };
 
 EarthquakeMap.defaultProps = {
@@ -22,13 +23,13 @@ const createEarthquakeMarkers = earthquakes => {
   );
 };
 
-export default function EarthquakeMap({ earthquakes, apiKey }) {
+export default function EarthquakeMap({ earthquakes }) {
   const markers = createEarthquakeMarkers(earthquakes);
   const dispatch = useDispatch();
   const language = useSelector(getLanguage);
 
   return (
-    <LoadScript googleMapsApiKey={ apiKey } language={ language }>
+    <LoadScript googleMapsApiKey={ API_KEY } language={ language }>
       <GoogleMap mapContainerClassName="EarthquakeMapContainer"
                  center={{ lat: 30, lng: -80 }}
                  zoom={ 3 }

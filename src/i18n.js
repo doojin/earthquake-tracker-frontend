@@ -117,6 +117,22 @@ const resources = {
   'failed.to.load.earthquakes': {
     en: 'We failed to load data from our servers',
     ru: 'У нас не получилось загрузить данные с нашего сервера'
+  },
+  'earthquakes.map': {
+    en: 'Earthquakes Map',
+    ru: 'Карта Землетрясений'
+  },
+  'earthquakes.table': {
+    en: 'Earthquakes Table',
+    ru: 'Таблица Землетрясений'
+  },
+  'title': {
+    en: 'Title',
+    ru: 'Название'
+  },
+  'latitude.longitude': {
+    en: 'Latitude / Longitude',
+    'ru': 'Широта / Долгота'
   }
 };
 
