@@ -8,9 +8,16 @@ import earthquakesReducer, {
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {getEarthquakes} from '../../api/earthquakesApi';
+import {toast} from 'react-toastify';
 
 jest.mock('../../api/earthquakesApi', () => ({
   getEarthquakes: jest.fn()
+}));
+
+jest.mock('react-toastify', () => ({
+  toast: {
+    error: jest.fn()
+  }
 }));
 
 describe('earthquakes slice', () => {
@@ -138,6 +145,13 @@ describe('earthquakes slice', () => {
         items: [],
         active: null
       });
+    });
+
+    test('shows error notification when failed fetching', () => {
+      earthquakesReducer({}, fetchEarthquakes.rejected());
+
+      expect(toast.error).toHaveBeenCalledTimes(1);
+      expect(toast.error).toHaveBeenCalledWith('failed.to.load.earthquakes');
     });
   });
 });
