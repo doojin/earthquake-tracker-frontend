@@ -137,6 +137,46 @@ const resources = {
   'radius.km': {
     en: 'Radius (km)',
     ru: 'Радиус (км)'
+  },
+  'latitude.error.invalid.number': {
+    en: 'Latitude should be a valid number',
+    ru: 'Широта должна быть числом'
+  },
+  'latitude.error.minimum': {
+    en: 'Minimal latitude is {{amount}}',
+    ru: 'Минимально допустимая широта: {{amount}}'
+  },
+  'latitude.error.maximum': {
+    en: 'Maximal latitude is {{amount}}',
+    ru: 'Максимально допустимая широта: {{amount}}'
+  },
+  'location.fields.bind': {
+    en: 'This field is required for location detection',
+    ru: 'Данное значение необходимо для вычисления локации'
+  },
+  'longitude.error.invalid.number': {
+    en: 'Longitude should be a valid number',
+    ru: 'Долгота должна быть числом'
+  },
+  'longitude.error.minimum': {
+    en: 'Minimal longitude is {{amount}}',
+    ru: 'Минимально допустимая долгота: {{amount}}'
+  },
+  'longitude.error.maximum': {
+    en: 'Maximal longitude is {{amount}}',
+    ru: 'Максимально допустимая долгота: {{amount}}'
+  },
+  'radius.error.invalid.number': {
+    en: 'Radius should be a valid number',
+    ru: 'Радиус должен быть числом'
+  },
+  'radius.error.minimum': {
+    en: 'Minimal radius is {{amount}} km',
+    ru: 'Минимально допустимый радиус: {{amount}} км'
+  },
+  'radius.error.maximum': {
+    en: 'Maximal radius is {{amount}} km',
+    ru: 'Максимально допустимый радиус: {{amount}} км'
   }
 };
 
