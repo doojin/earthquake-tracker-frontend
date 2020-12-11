@@ -4,7 +4,6 @@ import { subDays } from 'date-fns';
 import RelativeDate from './RelativeDate';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
-import {enUS, ru} from 'date-fns/locale';
 
 describe('RelativeDate', () => {
   let store;
@@ -13,9 +12,7 @@ describe('RelativeDate', () => {
     beforeEach(() => {
       store = configureStore({
         reducer: {
-          language: () => ({
-            dateLocale: enUS
-          })
+          language: () => 'en'
         }
       });
     });
@@ -38,9 +35,7 @@ describe('RelativeDate', () => {
     beforeEach(() => {
       store = configureStore({
         reducer: {
-          language: () => ({
-            dateLocale: ru
-          })
+          language: () => 'ru'
         }
       });
     });

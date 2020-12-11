@@ -13,7 +13,9 @@ export default function LanguageSwitch() {
   const dispatch = useDispatch();
   const language = useSelector(getLanguage);
 
-  useEffect(() => i18n.changeLanguage(language), [language]);
+  useEffect(() => {
+    (async () => await i18n.changeLanguage(language))();
+  }, [language]);
 
   const onSelectChange = language => dispatch(setLanguage(language));
 

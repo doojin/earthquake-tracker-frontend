@@ -33,9 +33,7 @@ describe('EarthquakeMap', () => {
           items: [],
           active: null
         }),
-        language: () => ({
-          lang: 'en'
-        })
+        language: () => 'en'
       }
     });
 

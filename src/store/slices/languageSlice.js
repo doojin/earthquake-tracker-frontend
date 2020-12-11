@@ -15,23 +15,17 @@ const antdLocales = {
 
 const languageSlice = createSlice({
   name: 'language',
-  initialState: {
-    lang: 'en',
-    dateLocale: enDateLocale,
-    antdLocale: enAntdLocale
-  },
+  initialState: 'en',
   reducers: {
     setLanguage(state, action) {
-      state.lang = action.payload;
-      state.dateLocale = dateLocales[action.payload];
-      state.antdLocale = antdLocales[action.payload];
+      return action.payload;
     }
   }
 });
 
-export const getLanguage = state => state.language.lang;
-export const getDateLocale = state => state.language.dateLocale;
-export const getAntdLocale = state => state.language.antdLocale;
+export const getLanguage = state => state.language;
+export const getDateLocale = state => dateLocales[state.language];
+export const getAntdLocale = state => antdLocales[state.language];
 
 export const {setLanguage} = languageSlice.actions;
 

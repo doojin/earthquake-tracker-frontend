@@ -17,9 +17,7 @@ describe('language slice', () => {
   describe('getLanguage', () => {
     test('gets current system language', () => {
       const state = {
-        language: {
-          lang: 'en'
-        }
+        language: 'en'
       };
 
       expect(getLanguage(state)).toEqual('en');
@@ -29,9 +27,7 @@ describe('language slice', () => {
   describe('getDateLocale', () => {
     test('gets current system date locale', () => {
       const state = {
-        language: {
-          dateLocale: 'enDateLocale'
-        }
+        language: 'en'
       };
 
       expect(getDateLocale(state)).toEqual('enDateLocale');
@@ -41,12 +37,10 @@ describe('language slice', () => {
   describe('getAntdLocale', () => {
     test('gets current system antd locale', () => {
       const state = {
-        language: {
-          antdLocale: 'enLocale'
-        }
+        language: 'en'
       };
 
-      expect(getAntdLocale(state)).toEqual('enLocale');
+      expect(getAntdLocale(state)).toEqual('enAntdLocale');
     });
   });
 
@@ -56,7 +50,7 @@ describe('language slice', () => {
 
       const updatedState = languageReducer(state, setLanguage('ru'));
 
-      expect(updatedState.lang).toEqual('ru');
+      expect(getLanguage({language:updatedState})).toEqual('ru');
     });
 
     test('changes date locale', () => {
@@ -64,7 +58,7 @@ describe('language slice', () => {
 
       const updatedState = languageReducer(state, setLanguage('ru'));
 
-      expect(updatedState.dateLocale).toEqual('ruDateLocale');
+      expect(getDateLocale({language: updatedState})).toEqual('ruDateLocale');
     });
 
     test('changes antd locale', () => {
@@ -72,7 +66,7 @@ describe('language slice', () => {
 
       const updatedState = languageReducer(state, setLanguage('ru'));
 
-      expect(updatedState.antdLocale).toEqual('ruAntdLocale');
+      expect(getAntdLocale({language: updatedState})).toEqual('ruAntdLocale');
     });
   });
 });

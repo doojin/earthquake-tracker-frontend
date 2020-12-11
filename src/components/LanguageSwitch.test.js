@@ -14,9 +14,7 @@ describe('language switch', () => {
   beforeEach(() => {
     store = configureStore({
       reducer: {
-        language: () => ({
-          lang: 'en'
-        })
+        language: () => 'en'
       }
     });
 
