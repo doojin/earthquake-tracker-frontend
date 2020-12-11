@@ -125,6 +125,14 @@ const resources = {
   'earthquakes.table': {
     en: 'Earthquakes Table',
     ru: 'Таблица Землетрясений'
+  },
+  'title': {
+    en: 'Title',
+    ru: 'Название'
+  },
+  'latitude.longitude': {
+    en: 'Latitude / Longitude',
+    'ru': 'Широта / Долгота'
   }
 };
 
