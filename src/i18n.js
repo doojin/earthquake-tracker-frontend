@@ -132,7 +132,11 @@ const resources = {
   },
   'latitude.longitude': {
     en: 'Latitude / Longitude',
-    'ru': 'Широта / Долгота'
+    ru: 'Широта / Долгота'
+  },
+  'radius.km': {
+    en: 'Radius (km)',
+    ru: 'Радиус (км)'
   }
 };
 
