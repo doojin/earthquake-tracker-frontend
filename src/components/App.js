@@ -12,29 +12,21 @@ import {ConfigProvider} from 'antd';
 import {getAntdLocale} from '../store/slices/languageSlice';
 import ToastContainer from './ToastContainer';
 import 'react-toastify/dist/ReactToastify.css';
+import EarthquakeView from './EarthquakeView';
 
 function App() {
-  const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
-
   const dispatch = useDispatch();
   const query = useSelector(getQuery);
   const antdLocale = useSelector(getAntdLocale);
-  const earthquakes = useSelector(getAllEarthquakes);
 
   useEffect(() => dispatch(fetchEarthquakes(query)), [dispatch, query]);
-
-  const earthquakeMap = (
-    <EarthquakeMap earthquakes={ earthquakes }
-                   apiKey={ API_KEY }
-                   center={{ latitude: 30, longitude: -85 }}/>
-  );
 
   return (
     <ConfigProvider locale={antdLocale}>
       <DataLoadingIndicator/>
       <ToastContainer/>
       <Container leftColumn={{ size: 6, className: 'queryForm', children: <SideMenu/> }}
-                 rightColumn={{ size: 18, className: 'earthquakeMap', children: earthquakeMap }}/>
+                 rightColumn={{ size: 18, className: 'earthquakeMap', children: <EarthquakeView/> }}/>
     </ConfigProvider>
   );
 }
