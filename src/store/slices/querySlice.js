@@ -10,7 +10,11 @@ const querySlice = createSlice({
     startDateTime: moment().subtract(1, 'days').toDate().getTime(),
     endDateTime: Date.now(),
     minDepth: -100,
-    maxDepth: 1000
+    maxDepth: 1000,
+    useLocation: false,
+    latitude: 0,
+    longitude: 0,
+    radius: 20_000
   },
   reducers: {
     updateQuery(state, action) {
