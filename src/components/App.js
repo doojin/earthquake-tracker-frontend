@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import EarthquakeMap from './EarthquakeMap';
 import Container from './Container';
-import { getAllEarthquakes, fetchEarthquakes } from '../store/slices/earthquakesSlice';
+import { fetchEarthquakes } from '../store/slices/earthquakesSlice';
 import { getQuery } from '../store/slices/querySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import DataLoadingIndicator from './DataLoadingIndicator';
