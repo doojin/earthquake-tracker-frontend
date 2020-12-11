@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getEarthquakes } from '../../api/earthquakesApi';
+import { toast } from 'react-toastify';
+import i18n from 'i18next';
 
 export const getAllEarthquakes = state => state.earthquakes.items;
 export const getActiveEarthquakeId = state => state.earthquakes.active;
@@ -33,6 +35,9 @@ const earthquakesSlice = createSlice({
     [fetchEarthquakes.fulfilled]: (state, action) => {
       state.items = action.payload;
       state.active = null;
+    },
+    [fetchEarthquakes.rejected]: () => {
+      toast.error(i18n.t('failed.to.load.earthquakes'));
     }
   }
 });
