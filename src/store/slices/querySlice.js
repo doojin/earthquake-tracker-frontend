@@ -11,7 +11,6 @@ const querySlice = createSlice({
     endDateTime: Date.now(),
     minDepth: -100,
     maxDepth: 1000,
-    useLocation: false,
     latitude: 0,
     longitude: 0,
     radius: 3000
