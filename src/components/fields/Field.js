@@ -38,7 +38,7 @@ export default function Field({children, name, secondaryName, formik, label, lab
 
   return (
     <div className={classNames.join(' ')}>
-      {inputLabel}
+      {inputLabel}:
       {children}
       {primaryError}
       {secondaryError}
