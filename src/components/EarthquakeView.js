@@ -4,6 +4,7 @@ import EarthquakeMap from './EarthquakeMap';
 import {getAllEarthquakes} from '../store/slices/earthquakesSlice';
 import {Tabs} from 'antd';
 import {useTranslation} from 'react-i18next';
+import EarthquakeTable from './EarthquakeTable';
 import './EarthquakeView.less';
 
 export default function EarthquakeView() {
@@ -16,7 +17,7 @@ export default function EarthquakeView() {
         <EarthquakeMap earthquakes={earthquakes} center={{latitude: 30, longitude: -85}}/>
       </Tabs.TabPane>
       <Tabs.TabPane tab={t('earthquakes.table')} key="earthquakeTable">
-        table
+        <EarthquakeTable/>
       </Tabs.TabPane>
     </Tabs>
   );
