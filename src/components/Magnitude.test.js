@@ -32,4 +32,13 @@ describe('Magnitude', () => {
       expect(magnitude).toHaveStyle('background-color: rgb(157, 35, 35)');
     });
   });
+
+  describe('toFixed property is provided', () => {
+    beforeEach(() =>
+      render(<Magnitude magnitude={ 6.1 } toFixed={ 3 } />));
+
+    test('correctly formats magnitude value', () => {
+      expect(screen.queryByText('6.100')).toBeInTheDocument();
+    });
+  });
 });
