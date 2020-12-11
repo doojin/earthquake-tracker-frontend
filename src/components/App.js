@@ -10,6 +10,8 @@ import './App.less';
 import SideMenu from './SideMenu';
 import {ConfigProvider} from 'antd';
 import {getAntdLocale} from '../store/slices/languageSlice';
+import ToastContainer from './ToastContainer';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const API_KEY = 'AIzaSyDMVX2ME7QpqJWf6hGmGoNY7wqTHJFO9wo';
@@ -30,6 +32,7 @@ function App() {
   return (
     <ConfigProvider locale={antdLocale}>
       <DataLoadingIndicator/>
+      <ToastContainer/>
       <Container leftColumn={{ size: 6, className: 'queryForm', children: <SideMenu/> }}
                  rightColumn={{ size: 18, className: 'earthquakeMap', children: earthquakeMap }}/>
     </ConfigProvider>
