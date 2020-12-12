@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - '*'
-      
+
 jobs:
   test-lint-deploy:
     runs-on: ubuntu-latest
@@ -30,8 +30,9 @@ jobs:
         run: CI=true npm test
 
       - name: Send deployment request
+        if: ${{ github.ref == 'refs/heads/main' }}
         uses: wei/curl@v1
-        env: 
+        env:
           WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         with:
           args: "-H 'webhook-secret: ${{ env.WEBHOOK_SECRET }}' http://eqtracker.tk:9000/hooks/redeploy-frontend"
