@@ -63,11 +63,39 @@ export default function QueryForm() {
         .number()
         .typeError(t('max.depth.error.invalid.number'))
         .min(-100, t('depth.error.minimum', {amount: -100}))
-        .max(1000, t('depth.error.maximum', {amount: 1000}))
+        .max(1000, t('depth.error.maximum', {amount: 1000})),
+      latitude: Yup
+        .number()
+        .typeError(t('latitude.error.invalid.number'))
+        .min(-90, t('latitude.error.minimum', {amount: -90}))
+        .max(90, t('latitude.error.maximum', {amount: 90}))
+        .test(null, t('location.fields.bind'), function (latitude) {
+          const {longitude, radius} = this.parent;
+          return latitude !== undefined || (longitude === undefined && radius === undefined);
+        }),
+      longitude: Yup
+        .number()
+        .typeError(t('longitude.error.invalid.number'))
+        .min(-180, t('longitude.error.minimum', {amount: -180}))
+        .max(180, t('longitude.error.maximum', {amount: 180}))
+        .test(null, t('location.fields.bind'), function (longitude) {
+          const {latitude, radius} = this.parent;
+          return longitude !== undefined || (latitude === undefined && radius === undefined);
+        }),
+      radius: Yup
+        .number()
+        .typeError(t('radius.error.invalid.number'))
+        .min(0, t('radius.error.minimum', {amount: 0}))
+        .max(20_000, t('radius.error.maximum', {amount: 20_000}))
+        .test(null, t('location.fields.bind'), function (radius) {
+          const {latitude, longitude} = this.parent;
+          return radius !== undefined || (latitude === undefined && longitude === undefined);
+        })
   });
 
   return (
     <Formik initialValues={query}
+            initialTouched={{ latitude: true, longitude: true, radius: true }}
             validationSchema={schema}
             onSubmit={values => dispatch(updateQuery(values))}>
       {
@@ -76,7 +104,7 @@ export default function QueryForm() {
 
             <SliderField name="limit"
                          formik={formik}
-                         label={`${t('limit')}:`}
+                         label={t('limit')}
                          min={100}
                          max={1000}
                          step={50}/>
@@ -84,35 +112,47 @@ export default function QueryForm() {
             <RangeSliderField minValueName="minMagnitude"
                               maxValueName="maxMagnitude"
                               formik={formik}
-                              label={`${t('magnitude')}:`}
+                              label={t('magnitude')}
                               min={0}
                               max={10}
                               step={0.5}/>
 
             <DateTimeField name="startDateTime"
                            formik={formik}
-                           label={`${t('start.date.time')}:`}/>
+                           label={t('start.date.time')}/>
 
             <DateTimeField name="endDateTime"
                            formik={formik}
-                           label={`${t('end.date.time')}:`}/>
+                           label={t('end.date.time')}/>
 
             <RangeSliderField minValueName="minDepth"
                               maxValueName="maxDepth"
                               formik={formik}
-                              label={`${t('depth')} (${t('km')}):`}
+                              label={t('depth.km')}
                               min={-100}
                               max={1000}
                               step={50}/>
 
-            {/*<div className="field">*/}
-            {/*  <Switch id="enableLocation"*/}
-            {/*          checked={props.values.enableLocation}*/}
-            {/*          onChange={value => props.setFieldValue('enableLocation', value)}*/}
-            {/*          checkedChildren="Disable Location"*/}
-            {/*          unCheckedChildren="Enable Location">*/}
-            {/*  </Switch>*/}
-            {/*</div>*/}
+            <SliderField name="latitude"
+                         formik={formik}
+                         label={t('latitude')}
+                         min={-90}
+                         max={90}
+                         step={1}/>
+
+            <SliderField name="longitude"
+                         formik={formik}
+                         label={t('longitude')}
+                         min={-180}
+                         max={180}
+                         step={1}/>
+
+            <SliderField name="radius"
+                         formik={formik}
+                         label={t('radius.km')}
+                         min={0}
+                         max={20_000}
+                         step={1}/>
 
             <div className="SearchButton">
               <Button onClick={formik.handleSubmit}>

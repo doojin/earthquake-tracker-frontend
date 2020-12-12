@@ -21,7 +21,10 @@ describe('query form', () => {
           startDateTime: originalDate,
           endDateTime: originalDate,
           minDepth: 0,
-          maxDepth: 0
+          maxDepth: 0,
+          latitude: undefined,
+          longitude: undefined,
+          radius: undefined
         })
       }
     });
@@ -34,20 +37,29 @@ describe('query form', () => {
       </Provider>
     );
 
-    expect(screen.queryByText('limit:')).toBeInTheDocument();
-    expect(screen.queryByRole('spinbutton', { name: 'limit:' })).toBeInTheDocument();
+    expect(screen.queryByText('limit')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'limit' })).toBeInTheDocument();
 
-    expect(screen.queryByText('magnitude:')).toBeInTheDocument();
-    expect(screen.queryByRole('spinbutton', { name: 'magnitude:' })).toBeInTheDocument();
+    expect(screen.queryByText('magnitude')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'magnitude' })).toBeInTheDocument();
 
-    expect(screen.queryByText('start.date.time:')).toBeInTheDocument();
-    expect(screen.queryByRole('textbox', { name: 'start.date.time:' })).toBeInTheDocument();
+    expect(screen.queryByText('start.date.time')).toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: 'start.date.time' })).toBeInTheDocument();
 
-    expect(screen.queryByText('end.date.time:')).toBeInTheDocument();
-    expect(screen.queryByRole('textbox', { name: 'end.date.time:' })).toBeInTheDocument();
+    expect(screen.queryByText('end.date.time')).toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: 'end.date.time' })).toBeInTheDocument();
 
-    expect(screen.queryByText('depth (km):')).toBeInTheDocument();
-    expect(screen.queryByRole('spinbutton', { name: 'depth (km):' })).toBeInTheDocument();
+    expect(screen.queryByText('depth.km')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'depth.km' })).toBeInTheDocument();
+
+    expect(screen.queryByText('latitude')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'latitude' })).toBeInTheDocument();
+
+    expect(screen.queryByText('longitude')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'longitude' })).toBeInTheDocument();
+
+    expect(screen.queryByText('radius.km')).toBeInTheDocument();
+    expect(screen.queryByRole('spinbutton', { name: 'radius.km' })).toBeInTheDocument();
   });
 
   describe('form validation', () => {
@@ -60,6 +72,9 @@ describe('query form', () => {
     let removeEndDateTimeButton;
     let minDepthField;
     let maxDepthField;
+    let latitude;
+    let longitude;
+    let radius;
 
     beforeEach(() => {
       store = configureStore({
@@ -71,7 +86,10 @@ describe('query form', () => {
             startDateTime: Date.now(),
             endDateTime: Date.now(),
             minDepth: 0,
-            maxDepth: 0
+            maxDepth: 0,
+            latitude: undefined,
+            longitude: undefined,
+            radius: undefined
           })
         }
       });
@@ -82,25 +100,31 @@ describe('query form', () => {
         </Provider>
       );
 
-      limitField = screen.queryByRole('spinbutton', { name: 'limit:' });
+      limitField = screen.queryByRole('spinbutton', { name: 'limit' });
 
       [minMagnitudeField, maxMagnitudeField] =
-        within(screen.queryByText('magnitude:').parentElement).queryAllByRole('spinbutton');
+        within(screen.queryByText('magnitude').parentElement).queryAllByRole('spinbutton');
 
-      startDateTimeField = within(screen.queryByText('start.date.time:').parentElement)
+      startDateTimeField = within(screen.queryByText('start.date.time').parentElement)
         .queryByRole('textbox');
 
-      removeStartDateTimeButton = within(screen.queryByText('start.date.time:').parentElement)
+      removeStartDateTimeButton = within(screen.queryByText('start.date.time').parentElement)
         .queryByRole('img', { name: 'close-circle' });
 
-      endDateTimeField = within(screen.queryByText('end.date.time:').parentElement)
+      endDateTimeField = within(screen.queryByText('end.date.time').parentElement)
         .queryByRole('textbox');
 
-      removeEndDateTimeButton = within(screen.queryByText('end.date.time:').parentElement)
+      removeEndDateTimeButton = within(screen.queryByText('end.date.time').parentElement)
         .queryByRole('img', { name: 'close-circle' });
 
       [minDepthField, maxDepthField] =
-        within(screen.queryByText('depth (km):').parentElement).queryAllByRole('spinbutton');
+        within(screen.queryByText('depth.km').parentElement).queryAllByRole('spinbutton');
+
+      latitude = screen.queryByRole('spinbutton', { name: 'latitude' });
+
+      longitude = screen.queryByRole('spinbutton', { name: 'longitude' });
+
+      radius = screen.queryByRole('spinbutton', { name: 'radius.km' });
     });
 
     describe('limit field', () => {
@@ -351,6 +375,114 @@ describe('query form', () => {
 
           await waitFor(() =>
             expect(screen.queryByText('depth.error.maximum')).toBeInTheDocument());
+        });
+      });
+    });
+
+    describe('latitude field', () => {
+      describe('entering not a valid number', () => {
+        test('error is shown', async () => {
+          await userEvent.type(latitude, 'notNumber', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('latitude.error.invalid.number')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering number smaller than allowed', () => {
+        test('error is shown', async () => {
+          await userEvent.type(latitude, '-91', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('latitude.error.minimum')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering number greater than allowed', () => {
+        test('error is shown', async () => {
+          await userEvent.type(latitude, '91', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('latitude.error.maximum')).toBeInTheDocument());
+        });
+      });
+    });
+
+    describe('longitude field', () => {
+      describe('entering not a valid number', () => {
+        test('error is shown', async () => {
+          await userEvent.type(longitude, 'notNumber', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('longitude.error.invalid.number')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering number smaller than allowed', () => {
+        test('error is shown', async () => {
+          await userEvent.type(longitude, '-181', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('longitude.error.minimum')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering number greater than allowed', () => {
+        test('error is shown', async () => {
+          await userEvent.type(longitude, '181', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('longitude.error.maximum')).toBeInTheDocument());
+        });
+      });
+    });
+
+    describe('radius field', () => {
+      describe('entering not a valid number', () => {
+        test('error is shown', async () => {
+          await userEvent.type(radius, 'notNumber', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('radius.error.invalid.number')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering number smaller than allowed', () => {
+        test('error is shown', async () => {
+          await userEvent.type(radius, '-1', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('radius.error.minimum')).toBeInTheDocument());
+        });
+      });
+
+      describe('entering number greater than allowed', () => {
+        test('error is shown', async () => {
+          await userEvent.type(radius, '20001', {delay: 1});
+
+          await waitFor(() =>
+            expect(screen.queryByText('radius.error.maximum')).toBeInTheDocument());
+        });
+      });
+    });
+
+    describe('location fields', () => {
+      describe('user fills only one location field', () => {
+        test('two errors are shown', async () => {
+          await userEvent.type(latitude, '0', {delay: 1});
+
+          (await waitFor(() =>
+            expect(screen.queryAllByText('location.fields.bind')).toHaveLength(2)));
+        });
+      });
+
+      describe('user fills only two location fields', () => {
+        test('one error is shown', async () => {
+          await userEvent.type(latitude, '0', {delay: 1});
+          await userEvent.type(longitude, '0', {delay: 1});
+
+          (await waitFor(() =>
+            expect(screen.queryAllByText('location.fields.bind')).toHaveLength(1)));
         });
       });
     });
