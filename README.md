@@ -25,3 +25,5 @@ Application requires a backend to fetch the data. Corresponding backend project 
 
 More information about deployment you can find in the backend project:
 [doojin/earthquake-tracker](https://github.com/doojin/earthquake-tracker)
+
+triggering build!
