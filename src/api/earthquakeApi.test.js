@@ -40,7 +40,10 @@ describe('earthquakes api', () => {
           startDateTime: new Date(1991, 2, 21, 21, 40, 13).getTime(),
           endDateTime: new Date(1991, 2, 21, 21, 40, 14).getTime(),
           minDepth: 'testMinDepth',
-          maxDepth: 'testMaxDepth'
+          maxDepth: 'testMaxDepth',
+          latitude: 'testLatitude',
+          longitude: 'testLongitude',
+          radius: 'testRadius'
         });
       });
 
@@ -48,8 +51,18 @@ describe('earthquakes api', () => {
         expect(fetchMock.calls().length).toEqual(1);
 
         const [url] = fetchMock.calls()[0];
-        expect(url).toEqual('/earthquakes?limit=testLimit&minMagnitude=testMinMagnitude&maxMagnitude=testMaxMagnitude&startTime=1991-03-21T21%3A40%3A13%2B00%3A00&endTime=1991-03-21T21%3A40%3A14%2B00%3A00&minDepth=testMinDepth&maxDepth=testMaxDepth');
+        expect(url).toEqual('/earthquakes?limit=testLimit&minMagnitude=testMinMagnitude&maxMagnitude=testMaxMagnitude&startTime=1991-03-21T21%3A40%3A13%2B00%3A00&endTime=1991-03-21T21%3A40%3A14%2B00%3A00&minDepth=testMinDepth&maxDepth=testMaxDepth&latitude=testLatitude&longitude=testLongitude&radius=testRadius');
       });
+    });
+  });
+
+  describe('fetch request returns non-200 status code', () => {
+    beforeEach(() => {
+      fetchMock.get('*', {status: 500}, {overwriteRoutes: true});
+    });
+
+    test('error is thrown', async () => {
+      await expect(getEarthquakes({})).rejects.toThrow('Failed to fetch earthquake data');
     });
   });
 });
