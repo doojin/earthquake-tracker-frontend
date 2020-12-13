@@ -24,6 +24,11 @@ const querySlice = createSlice({
 
 export const getQuery = state => state.query;
 
+export const getLocation = state => {
+  const {latitude, longitude, radius} = state.query;
+  return {latitude, longitude, radius};
+};
+
 export const {updateQuery} = querySlice.actions;
 
 export default querySlice.reducer;

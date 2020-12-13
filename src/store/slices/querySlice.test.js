@@ -1,4 +1,4 @@
-import queryReducer, {getQuery, updateQuery} from './querySlice';
+import queryReducer, {getLocation, getQuery, updateQuery} from './querySlice';
 
 describe('query slice', () => {
   describe('getQuery', () => {
@@ -10,6 +10,26 @@ describe('query slice', () => {
       };
 
       expect(getQuery(state)).toEqual(2);
+    });
+  });
+
+  describe('getLocation', () => {
+    test('returns location values', () => {
+      const state = {
+        query: {
+          latitude: 1,
+          longitude: 2,
+          radius: 3
+        }
+      };
+
+      const location = getLocation(state);
+
+      expect(location).toEqual({
+        latitude: 1,
+        longitude: 2,
+        radius: 3
+      });
     });
   });
 
