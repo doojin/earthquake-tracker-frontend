@@ -22,6 +22,8 @@ jest.mock('@react-google-maps/api', () => ({
     )
 }));
 
+jest.mock('./EarthquakesArea', () => () => 'component:EarthquakesArea');
+
 describe('EarthquakeMap', () => {
   let store;
   let earthquakes;
